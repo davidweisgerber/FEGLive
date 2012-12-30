@@ -4,6 +4,8 @@
 #include <QtGui/QMainWindow>
 #include "ui_fegliveproducer.h"
 
+class CasparConnection;
+
 class FEGLiveProducer : public QMainWindow
 {
 	Q_OBJECT
@@ -14,6 +16,7 @@ public:
 
 private:
 	Ui::FEGLiveProducerClass ui;
+	CasparConnection *m_casparCon;
 };
 
 #endif // FEGLIVEPRODUCER_H

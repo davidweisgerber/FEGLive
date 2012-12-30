@@ -1,4 +1,7 @@
 <RCC>
-    <qresource prefix="FEGLiveProducer">
+    <qresource prefix="/FEGLiveProducer">
+        <file>camera.png</file>
+        <file>off.png</file>
+        <file>video.png</file>
     </qresource>
 </RCC>
