@@ -490,7 +490,56 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QComboBox" name="backgroundTransitionComboBox">
+           <item>
+            <property name="text">
+             <string>CUT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MIX</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>PUSH</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>WIPE</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SLIDE</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="backgroundTransitionTime">
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="BackgroundProgramSelectWidget" name="backgroundProgramWidget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>0</width>

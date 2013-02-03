@@ -36,6 +36,9 @@
     <Filter Include="Images">
       <UniqueIdentifier>{615f6b88-97c7-4796-8c7b-0cabd7b9c28a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LibQAtemControl">
+      <UniqueIdentifier>{2ee10d34-e7af-4fb9-9edc-f8b0f8836b80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +101,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_casparconnection.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\qatemcontrol\qatemconnection.cpp">
+      <Filter>LibQAtemControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qatemconnection.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qatemconnection.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fegliveproducer.h">
@@ -124,10 +136,22 @@
     <CustomBuild Include="casparconnection.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\qatemcontrol\qatemconnection.h">
+      <Filter>LibQAtemControl</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_fegliveproducer.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\qatemcontrol\libqatemcontrol_global.h">
+      <Filter>LibQAtemControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\qatemcontrol\qdownstreamkeysettings.h">
+      <Filter>LibQAtemControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\qatemcontrol\qupstreamkeysettings.h">
+      <Filter>LibQAtemControl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
