@@ -3,5 +3,7 @@
         <file>camera.png</file>
         <file>off.png</file>
         <file>video.png</file>
+        <file>lowerthird.png</file>
+        <file>lowerthirdtext.png</file>
     </qresource>
 </RCC>

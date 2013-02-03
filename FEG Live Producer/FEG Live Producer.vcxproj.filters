@@ -39,6 +39,9 @@
     <Filter Include="LibQAtemControl">
       <UniqueIdentifier>{2ee10d34-e7af-4fb9-9edc-f8b0f8836b80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Testfiles">
+      <UniqueIdentifier>{deb6bc3e-58b3-404e-98f2-0d4b3d0baf54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +113,21 @@
     <ClCompile Include="GeneratedFiles\Release\moc_qatemconnection.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="songfileparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_songfileparser.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_songfileparser.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="lowerthirdstext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lowerthird.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fegliveproducer.h">
@@ -139,6 +157,9 @@
     <CustomBuild Include="..\qatemcontrol\qatemconnection.h">
       <Filter>LibQAtemControl</Filter>
     </CustomBuild>
+    <CustomBuild Include="songfileparser.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_fegliveproducer.h">
@@ -153,6 +174,12 @@
     <ClInclude Include="..\qatemcontrol\qupstreamkeysettings.h">
       <Filter>LibQAtemControl</Filter>
     </ClInclude>
+    <ClInclude Include="lowerthirdstext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lowerthird.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FEG Live Producer.rc" />
@@ -165,6 +192,15 @@
       <Filter>Images</Filter>
     </None>
     <None Include="video.png">
+      <Filter>Images</Filter>
+    </None>
+    <None Include="..\testfiles\testsong.js">
+      <Filter>Testfiles</Filter>
+    </None>
+    <None Include="lowerthird.png">
+      <Filter>Images</Filter>
+    </None>
+    <None Include="lowerthirdtext.png">
       <Filter>Images</Filter>
     </None>
   </ItemGroup>

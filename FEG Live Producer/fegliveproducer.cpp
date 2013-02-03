@@ -1,4 +1,5 @@
 #include "casparconnection.h"
+#include "songfileparser.h"
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
@@ -10,12 +11,19 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_casparCon->connectToHost("localhost", 5250);
 
 	ui.backgroundProgramWidget->setCasparConnection(m_casparCon);
+	ui.lowerThirdsTextSelect->setCasparConnection(m_casparCon);
 
 	connect(ui.backgroundTransitionComboBox, SIGNAL(activated(const QString &)), ui.backgroundProgramWidget, SLOT(setBackgroundTransitionStyle(const QString &)));
 	connect(ui.backgroundTransitionTime, SIGNAL(valueChanged(int)), ui.backgroundProgramWidget, SLOT(setBackgroundTransitionTime(int)));
+	connect(ui.lowerThirdsSelect, SIGNAL(lowerThirdChanged(const LowerThird &)), ui.lowerThirdsTextSelect, SLOT(setLowerThird(const LowerThird &)));
 
 	ui.backgroundProgramWidget->setBackgroundTransitionStyle(ui.backgroundTransitionComboBox->currentText());
 	ui.backgroundProgramWidget->setBackgroundTransitionTime(ui.backgroundTransitionTime->value());
+
+	SongFileParser songFile;
+	songFile.parseFromFile("../testfiles/testsong.js");
+
+	ui.lowerThirdsSelect->addLowerThird(songFile.toLowerThird("SIMPLETEMPLATE2"));
 }
 
 FEGLiveProducer::~FEGLiveProducer()
