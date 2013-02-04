@@ -16,6 +16,7 @@ public:
 	~BackgroundProgramSelectWidget();
 
 	void addSelectData(SelectData *data);
+	void setDefault(SelectData *data);
 	void setCasparConnection(CasparConnection *con);
 
 public slots:

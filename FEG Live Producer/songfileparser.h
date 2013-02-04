@@ -23,9 +23,9 @@ public:
 	const QStringList &getSlides() const;
 	LowerThird toLowerThird(const QString &movie) const;
 
-private:
-	QString getPropertyString(const QScriptValue &script, const QString &propertyName);
+	static QString getPropertyString(const QScriptValue &script, const QString &propertyName);
 
+private:
 	QString m_name;
 	QString m_author;
 	QString m_copyright;

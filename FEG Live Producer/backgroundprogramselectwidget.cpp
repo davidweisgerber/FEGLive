@@ -10,14 +10,8 @@ BackgroundProgramSelectWidget::BackgroundProgramSelectWidget(QWidget *parent)
 	: QWidget(parent),
 	m_backgroundTransitionTime(0)
 {
-	m_selectData.push_back(new SelectData(QPixmap(":FEGLiveProducer/camera.png"), "Cameras", "source:camera"));
-	m_selectData.push_back(new SelectData(QPixmap(":FEGLiveProducer/video.png"), "AMB", "file:AMB|LOOP"));
-	m_selectData.push_back(new SelectData(QPixmap(":FEGLiveProducer/video.png"), "CG 1080i50", "file:CG1080i50"));
-	m_selectData.push_back(new SelectData(QPixmap(":FEGLiveProducer/video.png"), "GO 1080p", "file:GO1080p25"));
-	m_selectData.push_back(new SelectData(QPixmap(":FEGLiveProducer/off.png"), "Off", "source:off"));
-
-	m_selected = m_selectData.at(0);
-	m_default = m_selectData.at(1);
+	m_selected = 0;
+	m_default = 0;
 }
 
 BackgroundProgramSelectWidget::~BackgroundProgramSelectWidget()
@@ -130,4 +124,9 @@ void BackgroundProgramSelectWidget::performAction( const QString &action, const 
 
 	QString outputCommand = QString("%1 1-1 %2 %3 %4 %5 %6").arg(command).arg(sourceName).arg(loop).arg(transitionStyle).arg(transitionTime).arg(autoStart);
 	m_con->sendCommand(outputCommand);
+}
+
+void BackgroundProgramSelectWidget::setDefault( SelectData *data )
+{
+	m_default = data;
 }

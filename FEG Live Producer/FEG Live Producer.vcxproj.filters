@@ -128,6 +128,18 @@
     <ClCompile Include="lowerthird.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="startdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_startdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_startdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="configurationparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fegliveproducer.h">
@@ -160,6 +172,12 @@
     <CustomBuild Include="songfileparser.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="startdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="startdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_fegliveproducer.h">
@@ -178,6 +196,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lowerthird.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_startdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="configurationparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
