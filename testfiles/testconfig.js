@@ -1,7 +1,7 @@
 // Template for config files
 
 "logoTemplate" : "FEGLOGO",
-"songTemplate" : "ERSTERTEST",
+"songTemplate" : "SONGTEXT",
 "generalTemplate" : "ERSTERTEST",
 "clips" : [ 
 	{

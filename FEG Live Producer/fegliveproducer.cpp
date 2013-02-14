@@ -128,7 +128,20 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 			if (ui.notesEdit->hasFocus() == false)
 			{
 				QKeyEvent *ev = dynamic_cast<QKeyEvent *>(e);
-				m_atem->keyPressed(ev->text());
+				
+				if (ev->key() == Qt::Key_Left)
+				{
+					ui.lowerThirdsTextSelect->left();
+				}
+				else if (ev->key() == Qt::Key_Right)
+				{
+					ui.lowerThirdsTextSelect->right();
+				}
+				else
+				{
+					m_atem->keyPressed(ev->text());
+				}
+				
 				ev->accept();
 			}
 			break;

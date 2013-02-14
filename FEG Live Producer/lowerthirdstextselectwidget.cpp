@@ -114,3 +114,37 @@ void LowerThirdsTextSelectWidget::setCasparConnection( CasparConnection *con )
 {
 	m_con = con;
 }
+
+void LowerThirdsTextSelectWidget::left()
+{
+	m_current--;
+
+	if (m_current <= 0) 
+	{
+		m_current = 0;
+		goOff();
+	}
+	else
+	{
+		doAction(m_texts[m_current-1]);
+	}
+
+	update();
+}
+
+void LowerThirdsTextSelectWidget::right()
+{
+	m_current++;
+
+	if (m_current > m_texts.size())
+	{
+		m_current = m_texts.size() + 1;
+		goOff();
+	}
+	else
+	{
+		doAction(m_texts[m_current-1]);
+	}
+
+	update();
+}

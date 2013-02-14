@@ -21,6 +21,8 @@ public:
 
 public slots:
 	void setLowerThird(const LowerThird &lowerThird);
+	void left();
+	void right();
 
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;
