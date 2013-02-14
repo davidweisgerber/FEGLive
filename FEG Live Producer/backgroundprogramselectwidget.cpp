@@ -2,6 +2,7 @@
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QTimer>
 #include "casparconnection.h"
 #include "selectdata.h"
 #include "backgroundprogramselectwidget.h"
@@ -72,10 +73,15 @@ void BackgroundProgramSelectWidget::mouseReleaseEvent(QMouseEvent *e)
 
 void BackgroundProgramSelectWidget::doAction(SelectData *data)
 {
-	performAction(data->getData(), "PLAY");
-
 	if (data != m_default) {
-		performAction(m_default->getData(), "LOADBG");
+		performAction(data->getData(), "PLAY");
+
+		// Perform loadbg for camera background when Decklink SDI was uninitialized
+		int msec = (20 * m_backgroundTransitionTime) + 2000;
+
+		QTimer::singleShot(msec, this, SLOT(doLoadBg()));
+	} else {
+		m_con->sendCommand("PLAY 1-1");
 	}
 }
 
@@ -129,4 +135,14 @@ void BackgroundProgramSelectWidget::performAction( const QString &action, const 
 void BackgroundProgramSelectWidget::setDefault( SelectData *data )
 {
 	m_default = data;
+}
+
+void BackgroundProgramSelectWidget::doLoadBg()
+{
+	performAction(m_default->getData(), "LOADBG");
+}
+
+void BackgroundProgramSelectWidget::start()
+{
+	performAction(m_default->getData(), "PLAY");
 }

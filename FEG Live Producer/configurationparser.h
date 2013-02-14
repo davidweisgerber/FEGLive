@@ -15,10 +15,12 @@ public:
 
 	const QString &getSongLowerThird() const;
 	const QString &getGeneralLowerThird() const;
+	const QString &getLogo() const;
 	const QList<SelectData *> &getProgram() const;
 	int getDefaultClip() const;
 
 private:
+	QString m_logo;
 	QString m_songLowerThird;
 	QString m_generalLowerThird;
 	QList<SelectData *> m_programs;

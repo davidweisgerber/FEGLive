@@ -1,4 +1,7 @@
+#include <Windows.h>
 #include <QKeyEvent>
+#include <QTimer>
+#include "recordmanager.h"
 #include "casparconnection.h"
 #include "songfileparser.h"
 #include "startdialog.h"
@@ -39,6 +42,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	connect(ui.takeFrameSpinBox, SIGNAL(valueChanged(int)), m_atem, SLOT(transitionFramesChanged(int)));
 	connect(ui.autoTakeButton, SIGNAL(clicked(bool)), m_atem, SLOT(autoTakeChanged(bool)));
 	connect(ui.takeStyleBox, SIGNAL(currentIndexChanged(int)), m_atem, SLOT(transitionChanged(int)));
+	connect(ui.logoButton, SIGNAL(clicked()), this, SLOT(logoClicked()));
 
 	m_casparCon = new CasparConnection(this);
 	m_casparCon->connectToHost("localhost", 5250);
@@ -74,8 +78,17 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	ui.backgroundProgramWidget->setDefault(m_config->getProgram()[m_config->getDefaultClip()]);
 
 	m_atem->start();
+	ui.backgroundProgramWidget->start();
 
-	grabKeyboard();
+	doNastyStuff();
+
+	m_records = new RecordManager(m_casparCon, this);
+	connect(ui.recordButton, SIGNAL(clicked()), this, SLOT(recordClicked()));
+
+	m_timer = new QTimer();
+	m_timer->setInterval(1000);
+	connect(m_timer, SIGNAL(timeout()), this, SLOT(updateStuff()));
+	m_timer->start();
 }
 
 FEGLiveProducer::~FEGLiveProducer()
@@ -123,4 +136,53 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 	}
 
 	return QMainWindow::eventFilter(target, e);
+}
+
+void FEGLiveProducer::moveCasparCgOglWindow()
+{
+	HWND hCasparCgWindow = FindWindowEx(NULL, NULL, L"SFML_Window", L"ogl[1|720p5000]");
+
+	if (hCasparCgWindow == NULL)
+	{
+		qDebug("caspar cg window was not found");
+		return;
+	}
+
+	SetWindowPos(hCasparCgWindow, HWND_TOPMOST, 1052, 408, 860, 484, SWP_NOACTIVATE);
+}
+
+void FEGLiveProducer::doNastyStuff()
+{
+	grabKeyboard();
+	moveCasparCgOglWindow();
+	logoClicked();
+}
+
+void FEGLiveProducer::updateStuff()
+{
+	ui.recordLabel->setText(m_records->getRecordingTime());
+}
+
+void FEGLiveProducer::recordClicked()
+{
+	if (ui.recordButton->isChecked())
+	{
+		m_records->start();
+	}
+	else
+	{
+		m_records->end();
+	}
+}
+
+void FEGLiveProducer::logoClicked()
+{
+	if (ui.logoButton->isChecked())
+	{
+		m_casparCon->sendCommand("CG 1-10 ADD 10 " + m_config->getLogo() + " 1");
+	}
+	else
+	{
+		m_casparCon->sendCommand("CG 1-10 STOP 10");
+	}
 }

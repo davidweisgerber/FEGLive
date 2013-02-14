@@ -28,6 +28,7 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 	QScriptEngine engine;
 	QScriptValue object = engine.evaluate("({" + program + "})");
 
+	m_logo = SongFileParser::getPropertyString(object, "logoTemplate");
 	m_songLowerThird = SongFileParser::getPropertyString(object, "songTemplate");
 	m_generalLowerThird = SongFileParser::getPropertyString(object, "generalTemplate");
 	if (object.property("defaultClip").isNumber()) {
@@ -65,4 +66,9 @@ const QList<SelectData *> & ConfigurationParser::getProgram() const
 int ConfigurationParser::getDefaultClip() const
 {
 	return m_defaultClip;
+}
+
+const QString & ConfigurationParser::getLogo() const
+{
+	return m_logo;
 }

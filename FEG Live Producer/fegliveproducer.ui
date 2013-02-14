@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1096</width>
-    <height>628</height>
+    <width>1900</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,11 +22,30 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="logoButton">
          <property name="minimumSize">
           <size>
-           <width>32</width>
-           <height>32</height>
+           <width>128</width>
+           <height>64</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Logo</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="broadcastButton">
+         <property name="minimumSize">
+          <size>
+           <width>128</width>
+           <height>64</height>
           </size>
          </property>
          <property name="text">
@@ -35,15 +54,45 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_2">
+        <widget class="QLabel" name="broadcastLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QToolButton" name="recordButton">
          <property name="minimumSize">
           <size>
-           <width>32</width>
-           <height>32</height>
+           <width>128</width>
+           <height>64</height>
           </size>
          </property>
          <property name="text">
           <string>Record</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="recordLabel">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -83,8 +132,8 @@
             <widget class="QToolButton" name="program1Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -102,8 +151,8 @@
             <widget class="QToolButton" name="program2Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -121,8 +170,8 @@
             <widget class="QToolButton" name="program3Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -140,8 +189,8 @@
             <widget class="QToolButton" name="program4Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -159,8 +208,8 @@
             <widget class="QToolButton" name="program5Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -178,8 +227,8 @@
             <widget class="QToolButton" name="program6Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -197,8 +246,8 @@
             <widget class="QToolButton" name="programBlackButton">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -230,7 +279,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_15">
+            <widget class="QToolButton" name="autoTakeButton">
              <property name="minimumSize">
               <size>
                <width>32</width>
@@ -238,12 +287,21 @@
               </size>
              </property>
              <property name="text">
-              <string>Auto</string>
+              <string>Auto Mode</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <property name="autoRaise">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="takeStyleBox">
              <property name="minimumSize">
               <size>
                <width>32</width>
@@ -273,25 +331,31 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox">
+            <widget class="QSpinBox" name="takeFrameSpinBox">
              <property name="minimumSize">
               <size>
                <width>32</width>
                <height>32</height>
               </size>
              </property>
+             <property name="maximum">
+              <number>255</number>
+             </property>
+             <property name="value">
+              <number>20</number>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_16">
+            <widget class="QToolButton" name="takeButton">
              <property name="minimumSize">
               <size>
-               <width>64</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
-              <string>Fade</string>
+              <string>Take</string>
              </property>
             </widget>
            </item>
@@ -335,8 +399,8 @@
             <widget class="QToolButton" name="preview1Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -354,8 +418,8 @@
             <widget class="QToolButton" name="preview2Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -373,8 +437,8 @@
             <widget class="QToolButton" name="preview3Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -392,8 +456,8 @@
             <widget class="QToolButton" name="preview4Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -411,8 +475,8 @@
             <widget class="QToolButton" name="preview5Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -430,8 +494,8 @@
             <widget class="QToolButton" name="preview6Button">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -449,8 +513,8 @@
             <widget class="QToolButton" name="previewBlackButton">
              <property name="minimumSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>128</width>
+               <height>64</height>
               </size>
              </property>
              <property name="text">
@@ -476,12 +540,25 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QTextEdit" name="textEdit"/>
+          <widget class="QTextEdit" name="notesEdit"/>
          </item>
         </layout>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox_2">
@@ -596,7 +673,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1096</width>
+     <width>1900</width>
      <height>21</height>
     </rect>
    </property>

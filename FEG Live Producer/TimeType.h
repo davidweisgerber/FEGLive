@@ -2,12 +2,12 @@
 #define TimeType_h__
 
 enum TimeType {
-	Unknown = 0,
-	Morning,
-	Evening,
+	UNKNOWN = 0,
+	MORNING,
+	EVENING,
 	MICC,
-	Special,
-	Empty
+	SPECIAL,
+	EMPTY
 };
 
 #endif // TimeType_h__

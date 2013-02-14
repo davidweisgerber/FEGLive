@@ -1,12 +1,13 @@
 // Template for config files
 
-"songTemplate" : "SIMPLETEMPLATE2",
-"generalTemplate" : "SIMPLETEMPLATE2",
+"logoTemplate" : "FEGLOGO",
+"songTemplate" : "ERSTERTEST",
+"generalTemplate" : "ERSTERTEST",
 "clips" : [ 
 	{
 		"icon" : ":FEGLiveProducer/camera.png",
 		"name" : "Cameras",
-		"data" : "source:camera"
+		"data" : "file:DECKLINK DEVICE 1"
 	},
 	{
 		"icon" : ":FEGLiveProducer/video.png",

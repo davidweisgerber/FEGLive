@@ -23,10 +23,15 @@ public slots:
 	void setBackgroundTransitionTime(int frames);
 	void setBackgroundTransitionStyle(const QString &style);
 
+	void start();
+
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;
 	virtual void mouseReleaseEvent(QMouseEvent *e) override;
 	virtual void doAction(SelectData *data);
+
+private slots:
+	void doLoadBg();
 
 private:
 	void performAction(const QString &action, const QString &command);
