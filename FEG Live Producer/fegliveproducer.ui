@@ -74,6 +74,13 @@
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="recordLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QToolButton" name="recordButton">
          <property name="minimumSize">
           <size>
@@ -86,13 +93,6 @@
          </property>
          <property name="checkable">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="recordLabel">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -266,24 +266,11 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
             <widget class="QToolButton" name="autoTakeButton">
              <property name="minimumSize">
               <size>
                <width>32</width>
-               <height>32</height>
+               <height>48</height>
               </size>
              </property>
              <property name="text">
@@ -301,37 +288,66 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="takeStyleBox">
-             <property name="minimumSize">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>40</width>
+               <height>20</height>
               </size>
              </property>
-             <item>
-              <property name="text">
-               <string>Mix</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dip</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Wipe</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hard</string>
-              </property>
-             </item>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="takeFrameSpinBox">
+            <widget class="QToolButton" name="hardButton">
+             <property name="minimumSize">
+              <size>
+               <width>64</width>
+               <height>48</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Hard</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="mixButton">
+             <property name="minimumSize">
+              <size>
+               <width>64</width>
+               <height>48</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Mix</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="mixSpinBox">
              <property name="minimumSize">
               <size>
                <width>32</width>
@@ -347,15 +363,95 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="takeButton">
+            <widget class="Line" name="line_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="dipButton">
              <property name="minimumSize">
               <size>
-               <width>128</width>
-               <height>64</height>
+               <width>64</width>
+               <height>48</height>
               </size>
              </property>
              <property name="text">
-              <string>Take</string>
+              <string>Dip</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="dipSpinBox">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="dipColourBox">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>White</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Black</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="wipeButton">
+             <property name="minimumSize">
+              <size>
+               <width>64</width>
+               <height>48</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Wipe</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="wipeSpinBox">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
             </widget>
            </item>
@@ -371,6 +467,19 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QToolButton" name="takeButton">
+             <property name="minimumSize">
+              <size>
+               <width>128</width>
+               <height>64</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Take</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -691,7 +800,16 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuLower_Thirds">
+    <property name="title">
+     <string>Lower Thirds</string>
+    </property>
+    <addaction name="actionAdd_Song"/>
+    <addaction name="actionAdd_Custom"/>
+    <addaction name="actionRemove"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuLower_Thirds"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionLoad_Preset">
@@ -712,6 +830,21 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAdd_Song">
+   <property name="text">
+    <string>Add Song</string>
+   </property>
+  </action>
+  <action name="actionAdd_Custom">
+   <property name="text">
+    <string>Add Custom</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove</string>
    </property>
   </action>
  </widget>
@@ -739,5 +872,22 @@
  <resources>
   <include location="fegliveproducer.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>FEGLiveProducerClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

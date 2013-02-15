@@ -21,8 +21,6 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	QCoreApplication::setOrganizationName("FEGMM");
 	
 	m_atem = new ATEMControl(this);
-	m_atem->setTransitionFramesSpinBox(ui.takeFrameSpinBox);
-	m_atem->setTransitionStyleComboBox(ui.takeStyleBox);
 	m_atem->addButtonInfo(ui.preview1Button, ATEMControl::ButtonInfo(1, false, ""));
 	m_atem->addButtonInfo(ui.preview2Button, ATEMControl::ButtonInfo(2, false, ""));
 	m_atem->addButtonInfo(ui.preview3Button, ATEMControl::ButtonInfo(3, false, ""));
@@ -37,11 +35,17 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_atem->addButtonInfo(ui.program6Button, ATEMControl::ButtonInfo(6, true, ""));
 	m_atem->addButtonInfo(ui.previewBlackButton, ATEMControl::ButtonInfo(0, false, ""));
 	m_atem->addButtonInfo(ui.programBlackButton, ATEMControl::ButtonInfo(0, true, ""));
+	m_atem->setMixButton(ui.mixButton);
+	m_atem->setDipButton(ui.dipButton);
+	m_atem->setWipeButton(ui.wipeButton);
+	m_atem->setHardButton(ui.hardButton);
+	m_atem->setMixSpinBox(ui.mixSpinBox);
+	m_atem->setDipSpinBox(ui.dipSpinBox);
+	m_atem->setWipeSpinBox(ui.wipeSpinBox);
+	m_atem->setDipColourBox(ui.dipColourBox);
 
 	connect(ui.takeButton, SIGNAL(clicked()), m_atem, SLOT(take()));
-	connect(ui.takeFrameSpinBox, SIGNAL(valueChanged(int)), m_atem, SLOT(transitionFramesChanged(int)));
 	connect(ui.autoTakeButton, SIGNAL(clicked(bool)), m_atem, SLOT(autoTakeChanged(bool)));
-	connect(ui.takeStyleBox, SIGNAL(currentIndexChanged(int)), m_atem, SLOT(transitionChanged(int)));
 	connect(ui.logoButton, SIGNAL(clicked()), this, SLOT(logoClicked()));
 
 	m_casparCon = new CasparConnection(this);

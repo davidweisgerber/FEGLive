@@ -1,8 +1,10 @@
+#include <Windows.h>
 #include <QSettings>
 #include <QHostAddress>
 #include <QTimer>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QToolButton>
 #include "qatemconnection.h"
 #include "atemcontrol.h"
 
@@ -62,7 +64,7 @@ void ATEMControl::addButtonInfo( QToolButton * button, const ButtonInfo &buttonI
 
 void ATEMControl::take()
 {
-	if (m_transitionStyleBox->currentIndex() == 3) 
+	if(m_hardButton->isChecked()) 
 	{
 		int program = m_con->programInput();
 		int preview = m_con->previewInput();
@@ -76,16 +78,52 @@ void ATEMControl::take()
 	}
 }
 
-void ATEMControl::transitionChanged( int transitionNo )
+void ATEMControl::transitionChanged()
 {
-	m_con->setTransitionType(transitionNo);
+	QToolButton *senderButton = dynamic_cast<QToolButton *>(sender());
+
+	for (int i=0; i < m_buttons.size(); i++)
+	{
+		if (m_buttons[i] != senderButton)
+		{
+			m_buttons[i]->setChecked(false);
+		}
+	}
+
+	if (senderButton == m_mixButton)
+	{
+		m_con->setTransitionType(0);
+	}
+	else if (senderButton == m_dipButton)
+	{
+		m_con->setTransitionType(1);
+	} 
+	else if (senderButton == m_wipeButton)
+	{
+		m_con->setTransitionType(2);
+	}
+	else
+	{
+		m_con->setTransitionType(3);
+	}
 }
 
-void ATEMControl::transitionFramesChanged( int frames )
+void ATEMControl::transitionFramesChanged(int frames)
 {
-	m_con->setWipeFrames(frames);
-	m_con->setDipFrames(frames);
-	m_con->setMixFrames(frames);
+	QSpinBox *senderBox = dynamic_cast<QSpinBox *>(sender());
+
+	if (senderBox == m_mixSpinBox)
+	{
+		m_con->setMixFrames(frames);
+	}
+	else if (senderBox == m_dipSpinBox)
+	{
+		m_con->setDipFrames(frames);
+	}
+	else if (senderBox == m_wipeSpinBox)
+	{
+		m_con->setWipeFrames(frames);
+	}	
 }
 
 void ATEMControl::autoTakeChanged( bool on )
@@ -117,22 +155,44 @@ void ATEMControl::timerTick()
 	}
 }
 
-void ATEMControl::setTransitionStyleComboBox( QComboBox *box )
-{
-	m_transitionStyleBox = box;
-}
-
-void ATEMControl::setTransitionFramesSpinBox( QSpinBox *box )
-{
-	m_transitionFramesBox = box;
-}
-
 void ATEMControl::start()
 {
-	m_transitionStyleBox->setCurrentIndex(m_con->transitionStyle());
-	m_transitionFramesBox->setValue(m_con->mixFrames());
-	m_con->setColorGeneratorColor(0, Qt::white);
-	m_con->setColorGeneratorColor(1, Qt::white);
+	int transitionStyle = m_con->transitionStyle();
+
+	switch (transitionStyle)
+	{
+	case 0:
+		m_mixButton->setChecked(true);
+		break;
+	case 1:
+		m_dipButton->setChecked(true);
+		break;
+	case 2:
+		m_wipeButton->setChecked(true);
+		break;
+	case 3:
+		m_hardButton->setChecked(true);
+		break;
+	}
+
+	m_mixSpinBox->setValue(m_con->mixFrames());
+	m_dipSpinBox->setValue(m_con->dipFrames());
+	m_wipeSpinBox->setValue(m_con->wipeFrames());
+
+	QColor dipColor = m_con->colorGeneratorColor(0);
+	if (dipColor == Qt::black)
+	{
+		m_dipColourBox->setCurrentIndex(1);
+	}
+	else if (dipColor == Qt::white)
+	{
+		m_dipColourBox->setCurrentIndex(0);
+	}
+	else
+	{
+		m_dipColourBox->setCurrentIndex(0);
+		dipColourChanged(0);
+	}
 }
 
 void ATEMControl::keyPressed(const QString &key)
@@ -160,11 +220,103 @@ void ATEMControl::keyPressed(const QString &key)
 
 	if (num >= 0 && num < 7)
 	{
-		m_con->changePreviewInput(num);
-
 		if (m_autoTake)
 		{
-			take();
+			autoTake(num);
 		}
+		else
+		{
+			m_con->changePreviewInput(num);
+		}
+	}
+}
+
+void ATEMControl::setHardButton( QToolButton *button )
+{
+	m_hardButton = button;
+	addAndConnectTransitionButton(button);
+}
+
+void ATEMControl::setMixButton( QToolButton *button )
+{
+	m_mixButton = button;
+	addAndConnectTransitionButton(button);
+}
+
+void ATEMControl::setDipButton( QToolButton *button )
+{
+	m_dipButton = button;
+	addAndConnectTransitionButton(button);
+}
+
+void ATEMControl::setWipeButton( QToolButton *button )
+{
+	m_wipeButton = button;
+	addAndConnectTransitionButton(button);
+}
+
+void ATEMControl::setMixSpinBox( QSpinBox *spinBox )
+{
+	m_mixSpinBox = spinBox;
+	connect(spinBox, SIGNAL(valueChanged(int)), this, SLOT(transitionFramesChanged(int)));
+}
+
+void ATEMControl::setDipSpinBox( QSpinBox *spinBox )
+{
+	m_dipSpinBox = spinBox;
+	connect(spinBox, SIGNAL(valueChanged(int)), this, SLOT(transitionFramesChanged(int)));
+}
+
+void ATEMControl::setWipeSpinBox( QSpinBox *spinBox )
+{
+	m_wipeSpinBox = spinBox;
+	connect(spinBox, SIGNAL(valueChanged(int)), this, SLOT(transitionFramesChanged(int)));
+}
+
+void ATEMControl::setDipColourBox( QComboBox *comboBox )
+{
+	m_dipColourBox = comboBox;
+	connect(m_dipColourBox, SIGNAL(currentIndexChanged(int)), this, SLOT(dipColourChanged(int)));
+}
+
+void ATEMControl::addAndConnectTransitionButton( QToolButton *button )
+{
+	m_buttons.append(button);
+	connect(button, SIGNAL(clicked()), this, SLOT(transitionChanged()));
+}
+
+void ATEMControl::dipColourChanged( int index )
+{
+	QColor color = Qt::white;
+	switch (index)
+	{
+	case 0:
+		color = Qt::white;
+		break;
+	case 1:
+		color = Qt::black;
+		break;
+	default:
+		color = Qt::white;
+		break;
+	}
+
+	m_con->setColorGeneratorColor(0, color);
+	m_con->setColorGeneratorColor(1, color);
+}
+
+void ATEMControl::autoTake(int button)
+{
+	if(m_hardButton->isChecked()) 
+	{
+		int program = m_con->programInput();
+		
+		m_con->changeProgramInput(button);
+		m_con->changePreviewInput(program);
+	}
+	else
+	{
+		m_con->changePreviewInput(button);
+		m_con->doAuto();
 	}
 }

@@ -16,8 +16,8 @@
 	},
 	{
 		"icon" : ":FEGLiveProducer/video.png",
-		"name" : "CG 1080i50",
-		"data" : "file:CG1080i50"
+		"name" : "Intro Matthias Lohmann",
+		"data" : "file:IntroMatthias"
 	},
 	{
 		"icon" : ":FEGLiveProducer/off.png",
