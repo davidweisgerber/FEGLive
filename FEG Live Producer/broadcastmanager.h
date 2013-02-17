@@ -17,8 +17,7 @@ public:
 	QString getBroadcastInformation();
 
 public slots:
-	void startBroadcast();
-	void stopBroadcast();
+	void broadcastClicked();
 
 private:
 	CasparConnection *m_casparCon;

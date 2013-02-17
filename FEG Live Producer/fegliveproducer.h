@@ -10,6 +10,7 @@ class ConfigurationParser;
 class ATEMControl;
 class QKeyEvent;
 class RecordManager;
+class BroadcastManager;
 class QTimer;
 
 class FEGLiveProducer : public QMainWindow
@@ -37,6 +38,7 @@ private:
 	ConfigurationParser *m_config;
 	ATEMControl *m_atem;
 	RecordManager *m_records;
+	BroadcastManager *m_broadcast;
 	QTimer *m_timer;
 };
 

@@ -8,6 +8,7 @@
 #include "configurationparser.h"
 #include "optionsmenu.h"
 #include "atemcontrol.h"
+#include "broadcastmanager.h"
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
@@ -88,6 +89,9 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 
 	m_records = new RecordManager(m_casparCon, this);
 	connect(ui.recordButton, SIGNAL(clicked()), this, SLOT(recordClicked()));
+
+	m_broadcast = new BroadcastManager(m_casparCon, this);
+	connect(ui.broadcastButton, SIGNAL(clicked()), m_broadcast, SLOT(broadcastClicked()));
 
 	m_timer = new QTimer();
 	m_timer->setInterval(1000);
@@ -178,6 +182,7 @@ void FEGLiveProducer::doNastyStuff()
 void FEGLiveProducer::updateStuff()
 {
 	ui.recordLabel->setText(m_records->getRecordingTime());
+	ui.broadcastLabel->setText(m_broadcast->getBroadcastInformation());
 }
 
 void FEGLiveProducer::recordClicked()
