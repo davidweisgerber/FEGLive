@@ -19,7 +19,11 @@ public:
 public slots:
 	void broadcastClicked();
 
+private slots:
+	void moveWindow();
+
 private:
+	void loadAndPlaceTCPRelay();
 	CasparConnection *m_casparCon;
 
 	QDateTime m_startBroadcast;

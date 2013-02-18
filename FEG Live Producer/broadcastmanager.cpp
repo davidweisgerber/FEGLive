@@ -1,3 +1,6 @@
+#include <QProcess>
+#include <QTimer>
+#include <Windows.h>
 #include "casparconnection.h"
 #include "broadcastmanager.h"
 
@@ -5,6 +8,7 @@ BroadcastManager::BroadcastManager( CasparConnection *casparCon, QObject *parent
 {
 	m_casparCon = casparCon;
 	m_isBroadcasting = false;
+	loadAndPlaceTCPRelay();
 }
 
 BroadcastManager::~BroadcastManager()
@@ -32,7 +36,28 @@ void BroadcastManager::broadcastClicked()
 	}
 	else
 	{
-		m_casparCon->sendCommand("ADD 1-10 FILE rtmp://localhost/flvplayback/high -f flv -vcodec h264 -acodec aac -r 25 -b 3000000 -ac 1");
+		m_casparCon->sendCommand("ADD 1-10 FILE rtmp://localhost/flvplayback/high -f flv -vcodec h264 -acodec aac -r 25 -maxrate 3500000 -b 3000000 -ac 1");
+		m_startBroadcast = QDateTime::currentDateTime();
 		m_isBroadcasting = true;
 	}
+}
+
+void BroadcastManager::loadAndPlaceTCPRelay()
+{
+	QProcess::startDetached("TCPRelay.exe");
+	QTimer::singleShot(500, this, SLOT(moveWindow()));
+}
+
+void BroadcastManager::moveWindow()
+{
+	HWND hCasparCgWindow = FindWindowEx(NULL, NULL, L"WindowsForms10.Window.8.app.0.2bf8098_r11_ad1", L"TCPRelay");
+
+	if (hCasparCgWindow == NULL)
+	{
+		qDebug("TCPRelay window was not found");
+		QTimer::singleShot(500, this, SLOT(moveWindow()));
+		return;
+	}
+
+	SetWindowPos(hCasparCgWindow, HWND_TOPMOST, 413, 402, 600, 200, SWP_NOACTIVATE);
 }

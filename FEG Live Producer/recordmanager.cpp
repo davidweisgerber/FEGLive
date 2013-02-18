@@ -1,3 +1,5 @@
+#include <QFileInfo>
+#include <Windows.h>
 #include "casparconnection.h"
 #include "recordmanager.h"
 
@@ -46,10 +48,27 @@ void RecordManager::end()
 
 QString RecordManager::getRecordingTime()
 {
-	if (!m_running) {
-		return tr("Not recording at the moment");
+	ULARGE_INTEGER size;
+	size.QuadPart = 0L;
+
+	if( !GetDiskFreeSpaceEx( L"C:", &size, NULL, NULL ) )
+	{
+		qDebug() << "ERROR: Call to GetDiskFreeSpaceEx() failed.";
 	}
 
-	int seconds = m_current.start.secsTo(QDateTime::currentDateTime());
-	return tr("%1:%2").arg(static_cast<int>(seconds / 60), 2, 10, QChar('0')).arg(static_cast<int>(seconds % 60), 2, 10, QChar('0'));
+	QString ret = "";
+
+	if (!m_running) {
+		ret += tr("Not recording at the moment");
+	}
+	else 
+	{
+		int seconds = m_current.start.secsTo(QDateTime::currentDateTime());
+		ret += tr("%1:%2").arg(static_cast<int>(seconds / 60), 2, 10, QChar('0')).arg(static_cast<int>(seconds % 60), 2, 10, QChar('0'));
+	}
+
+	ret += "\n";
+	ret += tr("Free disk space: %1 GB").arg(size.QuadPart / 1024.0 / 1024.0 / 1024.0, 0, 'g', 4);
+
+	return ret;
 }

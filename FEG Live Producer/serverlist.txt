@@ -1,0 +1,17 @@
+rtmp://live-sin-backup.justin.tv/app|Asia: Singapore|False
+rtmp://live-ams.justin.tv/app|EU: Amsterdam, NL|False
+rtmp://live-fra.justin.tv/app|EU: Frankfurt, Germany|False
+rtmp://live-lhr.justin.tv/app|EU: London, UK|False
+rtmp://live-lhr-backup.justin.tv/app|EU: London, UK (Secondary)|False
+rtmp://live-3c.justin.tv/app|Global Load Balancing Service|True
+rtmp://live-dfw.justin.tv/app|US Central: Dallas, TX|False
+rtmp://live-dfw-backup.justin.tv/app|US Central: San Antonio, TX|False
+rtmp://live-iad.justin.tv/app|US East: Ashburn, VA|False
+rtmp://live-iad-backup.justin.tv/app|US East: Ashburn, VA (Secondary)|False
+rtmp://live-mia.justin.tv/app|US East: Miami, FL|False
+rtmp://live-jfk.justin.tv/app|US East: New York, NY|False
+rtmp://live-ord.justin.tv/app|US Midwest: Chicago, IL|False
+rtmp://live-lax.justin.tv/app|US West: Los Angeles, CA|False
+rtmp://live-lax-backup.justin.tv/app|US West: Los Angeles, CA (Secondary)|False
+rtmp://live.justin.tv/app|US West: San Francisco, CA|False
+rtmp://streaming.cloud.fegmm.de/flvplayback/high
