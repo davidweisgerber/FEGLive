@@ -36,7 +36,7 @@ void BroadcastManager::broadcastClicked()
 	}
 	else
 	{
-		m_casparCon->sendCommand("ADD 1-10 FILE rtmp://localhost/flvplayback/high -f flv -vcodec h264 -acodec aac -r 25 -maxrate 3500000 -b 3000000 -ac 1");
+		m_casparCon->sendCommand("ADD 1-10 FILE rtmp://localhost/flvplayback/high -f flv -vcodec h264 -acodec aac -r 25 -maxrate 3000000 -b 3000000 -ac 1");
 		m_startBroadcast = QDateTime::currentDateTime();
 		m_isBroadcasting = true;
 	}

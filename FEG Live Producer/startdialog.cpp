@@ -13,7 +13,7 @@ StartDialog::StartDialog(QWidget *parent)
 	ui->configurationLabel->setText("default.js");
 
 	QSettings settings;
-	m_songDir = settings.value("songdir", "../songs/").toString();
+	m_songDir = settings.value("songdir", "songs/").toString();
 	QDir dir(m_songDir);
 	QStringList list = dir.entryList(QStringList() << "*.js");
 	foreach (QString string, list) {

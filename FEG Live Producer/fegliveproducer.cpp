@@ -68,7 +68,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	setWindowState(Qt::WindowMaximized);
 
 	m_config = new ConfigurationParser();
-	m_config->parseFromFile("../testfiles/testconfig.js");
+	m_config->parseFromFile("config/default.js");
 
 	foreach (QString song, m_startDialog->getSongs()) {
 		SongFileParser songFile;
