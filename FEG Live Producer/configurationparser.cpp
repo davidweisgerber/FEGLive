@@ -28,6 +28,10 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 	QScriptEngine engine;
 	QScriptValue object = engine.evaluate("({" + program + "})");
 
+	m_ffmpegPath = SongFileParser::getPropertyString(object, "ffmpegPath");
+	m_mediaPath = SongFileParser::getPropertyString(object, "casparcgMediaPath");
+	m_audioPath = SongFileParser::getPropertyString(object, "audioPath");
+	m_videoPath = SongFileParser::getPropertyString(object, "videoPath");
 	m_logo = SongFileParser::getPropertyString(object, "logoTemplate");
 	m_songLowerThird = SongFileParser::getPropertyString(object, "songTemplate");
 	m_generalLowerThird = SongFileParser::getPropertyString(object, "generalTemplate");
@@ -71,4 +75,24 @@ int ConfigurationParser::getDefaultClip() const
 const QString & ConfigurationParser::getLogo() const
 {
 	return m_logo;
+}
+
+const QString &ConfigurationParser::getVideoPath() const
+{
+	return m_videoPath;
+}
+
+const QString &ConfigurationParser::getAudioPath() const
+{
+	return m_audioPath;
+}
+
+const QString & ConfigurationParser::getMediaPath() const
+{
+	return m_mediaPath;
+}
+
+const QString & ConfigurationParser::getFfmpegPath() const
+{
+	return m_ffmpegPath;
 }

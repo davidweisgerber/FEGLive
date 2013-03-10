@@ -176,6 +176,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_broadcastmanager.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="saverecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_saverecord.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_saverecord.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fegliveproducer.h">
@@ -229,6 +238,12 @@
     <CustomBuild Include="broadcastmanager.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="saverecord.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="saverecord.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_fegliveproducer.h">
@@ -259,6 +274,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_optionsmenu.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_saverecord.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

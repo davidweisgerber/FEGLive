@@ -18,12 +18,19 @@ public:
 		QString filename;
 		QDateTime start;
 		QDateTime end;
+		bool savedAudio;
+		bool savedVideo;
+
+		Recording() {
+			savedVideo = savedAudio = false;
+		}
 	};
 
 	RecordManager(CasparConnection *con, QObject *parent);
 	~RecordManager();
 
 	QString getRecordingTime();
+	const QList<Recording> &getRecordings();
 
 public slots:
 	void start();

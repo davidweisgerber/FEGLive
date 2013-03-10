@@ -24,6 +24,7 @@ StartDialog::StartDialog(QWidget *parent)
 StartDialog::~StartDialog()
 {
 	delete ui;
+	ui = 0;
 }
 
 QDate StartDialog::getDate() const

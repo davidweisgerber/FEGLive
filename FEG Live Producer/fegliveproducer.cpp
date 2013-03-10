@@ -9,6 +9,7 @@
 #include "optionsmenu.h"
 #include "atemcontrol.h"
 #include "broadcastmanager.h"
+#include "saverecord.h"
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
@@ -89,6 +90,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 
 	m_records = new RecordManager(m_casparCon, this);
 	connect(ui.recordButton, SIGNAL(clicked()), this, SLOT(recordClicked()));
+	connect(ui.saveRecordButton, SIGNAL(clicked()), this, SLOT(saveRecordsClicked()));
 
 	m_broadcast = new BroadcastManager(m_casparCon, this);
 	connect(ui.broadcastButton, SIGNAL(clicked()), m_broadcast, SLOT(broadcastClicked()));
@@ -207,4 +209,10 @@ void FEGLiveProducer::logoClicked()
 	{
 		m_casparCon->sendCommand("CG 1-10 STOP 10");
 	}
+}
+
+void FEGLiveProducer::saveRecordsClicked()
+{
+	SaveRecord saver(m_records->getRecordings(), m_startDialog, m_config, this);
+	saver.exec();
 }

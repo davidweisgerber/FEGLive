@@ -72,3 +72,8 @@ QString RecordManager::getRecordingTime()
 
 	return ret;
 }
+
+const QList<RecordManager::Recording> & RecordManager::getRecordings()
+{
+	return m_records;
+}

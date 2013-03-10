@@ -28,6 +28,7 @@ private slots:
 	void updateStuff();
 	void recordClicked();
 	void logoClicked();
+	void saveRecordsClicked();
 
 private:
 	void doNastyStuff();
