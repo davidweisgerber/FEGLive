@@ -19,6 +19,8 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	
 	connect(ui.actionAddLowerThird, SIGNAL(triggered()), this, SLOT(addLowerThird()));
+	connect(ui.actionReposition_Windows, SIGNAL(triggered()), this, SLOT(moveCasparCgOglWindow()));
+	connect(ui.actionSecond_Monitor_Output, SIGNAL(triggered()), this, SLOT(toggleSecondMonitor()));
 
 	QCoreApplication::setApplicationName("FEG Live Producer");
 	QCoreApplication::setOrganizationName("FEGMM");
@@ -156,6 +158,24 @@ void FEGLiveProducer::moveCasparCgOglWindow()
 	}
 
 	SetWindowPos(hCasparCgWindow, HWND_TOPMOST, 1052, 408, 860, 484, SWP_NOACTIVATE);
+
+	hCasparCgWindow = FindWindowEx(NULL, hCasparCgWindow, L"SFML_Window", L"ogl[1|720p5000]");
+	if (hCasparCgWindow == NULL)
+	{
+		return;
+	}
+
+	DWORD dwStyle = GetWindowLong(hCasparCgWindow, GWL_STYLE);
+	SetWindowLong(hCasparCgWindow, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
+	
+	MONITORINFO mi = { sizeof(mi) };
+	GetMonitorInfo(MonitorFromWindow(hCasparCgWindow,
+		MONITOR_DEFAULTTOPRIMARY), &mi);
+	SetWindowPos(hCasparCgWindow, HWND_TOP,
+		mi.rcMonitor.left, mi.rcMonitor.top,
+		mi.rcMonitor.right - mi.rcMonitor.left,
+		mi.rcMonitor.bottom - mi.rcMonitor.top,
+		SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
 }
 
 void FEGLiveProducer::doNastyStuff()
@@ -204,4 +224,17 @@ void FEGLiveProducer::addLowerThird()
 {
 	AddLowerThirdDialog dlg(ui.lowerThirdsSelect, m_config, 0);
 	dlg.exec();
+}
+
+void FEGLiveProducer::toggleSecondMonitor()
+{
+	if (ui.actionSecond_Monitor_Output->isChecked()) 
+	{
+		m_casparCon->sendCommand("ADD 1-100 SCREEN 2 DEVICE 1");
+		QTimer::singleShot(1000, this, SLOT(moveCasparCgOglWindow()));
+	}
+	else
+	{
+		m_casparCon->sendCommand("REMOVE 1-100");
+	}
 }

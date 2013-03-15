@@ -30,10 +30,11 @@ private slots:
 	void logoClicked();
 	void saveRecordsClicked();
 	void addLowerThird();
-
+	void moveCasparCgOglWindow();
+	void toggleSecondMonitor();
+	
 private:
 	void doNastyStuff();
-	void moveCasparCgOglWindow();
 	Ui::FEGLiveProducerClass ui;
 	CasparConnection *m_casparCon;
 	StartDialog *m_startDialog;

@@ -305,7 +305,7 @@
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="autoRaise">
               <bool>false</bool>
@@ -840,7 +840,6 @@ p, li { white-space: pre-wrap; }
      <string>File</string>
     </property>
     <addaction name="actionLoad_Preset"/>
-    <addaction name="actionReposition_Windows"/>
     <addaction name="actionConfigure"/>
     <addaction name="actionExit"/>
    </widget>
@@ -856,9 +855,17 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionAddLowerThird"/>
    </widget>
+   <widget class="QMenu" name="menuOutput">
+    <property name="title">
+     <string>Output</string>
+    </property>
+    <addaction name="actionReposition_Windows"/>
+    <addaction name="actionSecond_Monitor_Output"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLower_Thirds"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuOutput"/>
   </widget>
   <action name="actionLoad_Preset">
    <property name="text">
@@ -898,6 +905,14 @@ p, li { white-space: pre-wrap; }
   <action name="actionReposition_Windows">
    <property name="text">
     <string>Reposition Windows</string>
+   </property>
+  </action>
+  <action name="actionSecond_Monitor_Output">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Second Monitor Output</string>
    </property>
   </action>
  </widget>

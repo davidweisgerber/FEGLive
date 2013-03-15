@@ -10,7 +10,7 @@
 
 ATEMControl::ATEMControl(QObject *parent)
 	: QObject(parent),
-	m_autoTake(true)
+	m_autoTake(false)
 {
 	m_con = new QAtemConnection(this);
 
