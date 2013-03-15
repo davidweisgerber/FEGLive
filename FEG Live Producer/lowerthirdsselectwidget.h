@@ -17,6 +17,10 @@ public:
 	void addLowerThird(const LowerThird &lowerThird);
 	LowerThird *getGeneralLowerThird();
 
+public slots:
+	void next();
+	void previous();
+
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;
 	virtual void mouseReleaseEvent(QMouseEvent *e) override;

@@ -14,7 +14,8 @@
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
-	: QMainWindow(parent, flags)
+	: QMainWindow(parent, flags),
+	m_notesFile("notes.txt")
 {
 	ui.setupUi(this);
 	
@@ -111,6 +112,12 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_timer->start();
 
 	qApp->installEventFilter(this);
+	if (m_notesFile.open(QIODevice::ReadWrite)) {
+		ui.notesEdit->setText(QString::fromUtf8(m_notesFile.readAll()));
+	} else {
+		ui.notesEdit->setText(tr("notes.txt could not be opened. That means that notes are not available in this session."));
+	}
+	connect(ui.notesEdit, SIGNAL(textChanged()), this, SLOT(notesChanged()));
 }
 
 FEGLiveProducer::~FEGLiveProducer()
@@ -134,6 +141,22 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 			else if (ev->key() == Qt::Key_Right)
 			{
 				ui.lowerThirdsTextSelect->right();
+			}
+			else if (ev->key() == Qt::Key_Up)
+			{
+				ui.lowerThirdsSelect->next();
+			}
+			else if (ev->key() == Qt::Key_Down)
+			{
+				ui.lowerThirdsSelect->previous();
+			}
+			else if (ev->key() == Qt::Key_Tab)
+			{
+				if (ui.notesEdit->hasFocus())
+				{
+					ui.notesEdit->clearFocus();
+					return true;
+				}
 			}
 			else
 			{
@@ -236,5 +259,16 @@ void FEGLiveProducer::toggleSecondMonitor()
 	else
 	{
 		m_casparCon->sendCommand("REMOVE 1-100");
+	}
+}
+
+void FEGLiveProducer::notesChanged()
+{
+	if (m_notesFile.isOpen()) 
+	{
+		m_notesFile.seek(0);
+		QByteArray noteText = ui.notesEdit->toPlainText().toUtf8();
+		m_notesFile.write(noteText);
+		m_notesFile.resize(noteText.length());
 	}
 }

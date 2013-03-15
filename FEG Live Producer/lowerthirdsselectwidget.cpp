@@ -62,3 +62,40 @@ LowerThird * LowerThirdsSelectWidget::getGeneralLowerThird()
 {
 	return &m_lowerThirds[0];
 }
+
+void LowerThirdsSelectWidget::next()
+{
+	qDebug("Current : %d", m_current);
+
+	m_current++;
+	if (m_current >= m_lowerThirds.size()) 
+	{
+		m_current = m_lowerThirds.size() - 1;
+	}
+	else
+	{
+		emit lowerThirdChanged(m_lowerThirds[m_current]);
+		update();
+	}
+}
+
+void LowerThirdsSelectWidget::previous()
+{
+	qDebug("Current : %d", m_current);
+
+	if (m_current == -1)
+	{
+		return;
+	}
+
+	m_current--;
+	if (m_current < 0) 
+	{
+		m_current = 0;
+	}
+	else
+	{
+		emit lowerThirdChanged(m_lowerThirds[m_current]);
+		update();
+	}
+}

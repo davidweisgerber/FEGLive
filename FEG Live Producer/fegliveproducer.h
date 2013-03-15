@@ -2,6 +2,7 @@
 #define FEGLIVEPRODUCER_H
 
 #include <QtGui/QMainWindow>
+#include <QFile>
 #include "ui_fegliveproducer.h"
 
 class CasparConnection;
@@ -32,6 +33,7 @@ private slots:
 	void addLowerThird();
 	void moveCasparCgOglWindow();
 	void toggleSecondMonitor();
+	void notesChanged();
 	
 private:
 	void doNastyStuff();
@@ -43,6 +45,7 @@ private:
 	RecordManager *m_records;
 	BroadcastManager *m_broadcast;
 	QTimer *m_timer;
+	QFile m_notesFile;
 };
 
 #endif // FEGLIVEPRODUCER_H
