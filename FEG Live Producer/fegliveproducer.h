@@ -29,6 +29,7 @@ private slots:
 	void recordClicked();
 	void logoClicked();
 	void saveRecordsClicked();
+	void addLowerThird();
 
 private:
 	void doNastyStuff();

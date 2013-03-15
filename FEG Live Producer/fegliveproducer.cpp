@@ -10,14 +10,15 @@
 #include "atemcontrol.h"
 #include "broadcastmanager.h"
 #include "saverecord.h"
+#include "addlowerthirddialog.h"
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
-	installEventFilter(this);
 	ui.setupUi(this);
 	
+	connect(ui.actionAddLowerThird, SIGNAL(triggered()), this, SLOT(addLowerThird()));
 
 	QCoreApplication::setApplicationName("FEG Live Producer");
 	QCoreApplication::setOrganizationName("FEGMM");
@@ -71,6 +72,13 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_config = new ConfigurationParser();
 	m_config->parseFromFile("config/default.js");
 
+	LowerThirdsText preacher(m_startDialog->getPreacher(), tr("Preacher"));
+	LowerThirdsText bibleText(m_startDialog->getBibleText(), tr("Today's Bible Text"));
+	LowerThirdsText topic(m_startDialog->getSermonTitle(), tr("Today's Topic"));
+
+	LowerThird generalLowerThird(tr("General"), m_config->getGeneralLowerThird(), QList<LowerThirdsText>() << preacher << bibleText << topic); 
+	ui.lowerThirdsSelect->addLowerThird(generalLowerThird);
+
 	foreach (QString song, m_startDialog->getSongs()) {
 		SongFileParser songFile;
 		songFile.parseFromFile(song);
@@ -99,6 +107,8 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_timer->setInterval(1000);
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(updateStuff()));
 	m_timer->start();
+
+	qApp->installEventFilter(this);
 }
 
 FEGLiveProducer::~FEGLiveProducer()
@@ -109,56 +119,30 @@ FEGLiveProducer::~FEGLiveProducer()
 
 bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 {
-	//!TODO 
-
 	switch (e->type())
 	{
-	case QEvent::ChildAdded:
+	case QEvent::KeyPress:
 		{
-			QChildEvent* ce = (QChildEvent*)e;
-			if (ce->child()->inherits("QTextEdit")) 
+			QKeyEvent *ev = dynamic_cast<QKeyEvent *>(e);
+				
+			if (ev->key() == Qt::Key_Left)
 			{
-				ce->child()->installEventFilter(this);
+				ui.lowerThirdsTextSelect->left();
+			}
+			else if (ev->key() == Qt::Key_Right)
+			{
+				ui.lowerThirdsTextSelect->right();
 			}
 			else
 			{
-				qDebug("TextEdit");
+				m_atem->keyPressed(ev->text());
 			}
-		}
-		break;
 
-	case QEvent::ChildRemoved:
-		{
-			QChildEvent* ce = (QChildEvent*)e;
-			ce->child()->removeEventFilter(this);
-		}
-		break;
-	case QEvent::KeyPress:
-		{
-			if (ui.notesEdit->hasFocus() == false)
-			{
-				QKeyEvent *ev = dynamic_cast<QKeyEvent *>(e);
-				
-				if (ev->key() == Qt::Key_Left)
-				{
-					ui.lowerThirdsTextSelect->left();
-				}
-				else if (ev->key() == Qt::Key_Right)
-				{
-					ui.lowerThirdsTextSelect->right();
-				}
-				else
-				{
-					m_atem->keyPressed(ev->text());
-				}
-				
-				ev->accept();
-			}
-			break;
+			return false;
 		}
 	}
 
-	return QMainWindow::eventFilter(target, e);
+	return false;
 }
 
 void FEGLiveProducer::moveCasparCgOglWindow()
@@ -176,7 +160,6 @@ void FEGLiveProducer::moveCasparCgOglWindow()
 
 void FEGLiveProducer::doNastyStuff()
 {
-	grabKeyboard();
 	moveCasparCgOglWindow();
 	logoClicked();
 }
@@ -215,4 +198,10 @@ void FEGLiveProducer::saveRecordsClicked()
 {
 	SaveRecord saver(m_records->getRecordings(), m_startDialog, m_config, this);
 	saver.exec();
+}
+
+void FEGLiveProducer::addLowerThird()
+{
+	AddLowerThirdDialog dlg(ui.lowerThirdsSelect, m_config, 0);
+	dlg.exec();
 }

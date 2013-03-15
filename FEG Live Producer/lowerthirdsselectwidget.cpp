@@ -57,3 +57,8 @@ void LowerThirdsSelectWidget::mouseReleaseEvent(QMouseEvent *e)
 		x += m_icon.width() + 5;
 	}
 }
+
+LowerThird * LowerThirdsSelectWidget::getGeneralLowerThird()
+{
+	return &m_lowerThirds[0];
+}

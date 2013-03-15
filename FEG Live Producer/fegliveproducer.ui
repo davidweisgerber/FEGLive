@@ -674,7 +674,15 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QTextEdit" name="notesEdit"/>
+          <widget class="QTextEdit" name="notesEdit">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -832,6 +840,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_Preset"/>
+    <addaction name="actionReposition_Windows"/>
     <addaction name="actionConfigure"/>
     <addaction name="actionExit"/>
    </widget>
@@ -845,9 +854,7 @@
     <property name="title">
      <string>Lower Thirds</string>
     </property>
-    <addaction name="actionAdd_Song"/>
-    <addaction name="actionAdd_Custom"/>
-    <addaction name="actionRemove"/>
+    <addaction name="actionAddLowerThird"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLower_Thirds"/>
@@ -873,9 +880,9 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionAdd_Song">
+  <action name="actionAddLowerThird">
    <property name="text">
-    <string>Add Song</string>
+    <string>Add Lower Third</string>
    </property>
   </action>
   <action name="actionAdd_Custom">
@@ -886,6 +893,11 @@
   <action name="actionRemove">
    <property name="text">
     <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionReposition_Windows">
+   <property name="text">
+    <string>Reposition Windows</string>
    </property>
   </action>
  </widget>

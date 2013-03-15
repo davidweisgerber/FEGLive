@@ -15,6 +15,7 @@ public:
 	~LowerThirdsSelectWidget();
 
 	void addLowerThird(const LowerThird &lowerThird);
+	LowerThird *getGeneralLowerThird();
 
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;

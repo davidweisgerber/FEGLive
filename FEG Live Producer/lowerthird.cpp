@@ -27,3 +27,8 @@ const QList<LowerThirdsText> & LowerThird::getTexts() const
 {
 	return m_texts;
 }
+
+void LowerThird::addText( const LowerThirdsText &text )
+{
+	m_texts.push_back(text);
+}

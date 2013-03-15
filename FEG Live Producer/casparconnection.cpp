@@ -55,5 +55,5 @@ void CasparConnection::connectToHost(const QString &hostname, int port)
 
 void CasparConnection::sendCommand(const QString &command)
 {
-	m_socket->write((command + "\r\n").toLatin1());
+	m_socket->write((command + "\r\n").toUtf8());
 }
