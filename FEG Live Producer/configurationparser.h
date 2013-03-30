@@ -22,6 +22,10 @@ public:
 	const QString &getAudioPath() const;
 	const QString &getMediaPath() const;
 	const QString &getFfmpegPath() const;
+	const QString &getPreacherLowerThirdTitle() const;
+	const QString &getTopicLowerThirdTitle() const;
+	const QString &getBibleTextLowerThirdTitle() const;
+
 
 private:
 	QString m_logo;
@@ -33,6 +37,10 @@ private:
 	QString m_audioPath;
 	QString m_mediaPath;
 	QString m_ffmpegPath;
+
+	QString m_preacherLowerThirdTitle;
+	QString m_topicLowerThirdTitle;
+	QString m_bibleTextLowerThirdTitle;
 };
 
 #endif // CONFIGURATIONPARSER_H

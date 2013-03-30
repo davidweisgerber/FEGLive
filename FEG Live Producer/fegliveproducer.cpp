@@ -75,9 +75,9 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_config = new ConfigurationParser();
 	m_config->parseFromFile("config/default.js");
 
-	LowerThirdsText preacher(m_startDialog->getPreacher(), tr("Preacher"));
-	LowerThirdsText bibleText(m_startDialog->getBibleText(), tr("Today's Bible Text"));
-	LowerThirdsText topic(m_startDialog->getSermonTitle(), tr("Today's Topic"));
+	LowerThirdsText preacher(m_startDialog->getPreacher(), m_config->getPreacherLowerThirdTitle());
+	LowerThirdsText bibleText(m_startDialog->getBibleText(), m_config->getBibleTextLowerThirdTitle());
+	LowerThirdsText topic(m_startDialog->getSermonTitle(), m_config->getTopicLowerThirdTitle());
 
 	LowerThird generalLowerThird(tr("General"), m_config->getGeneralLowerThird(), QList<LowerThirdsText>() << preacher << bibleText << topic); 
 	ui.lowerThirdsSelect->addLowerThird(generalLowerThird);

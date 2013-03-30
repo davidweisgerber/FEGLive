@@ -28,6 +28,10 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 	QScriptEngine engine;
 	QScriptValue object = engine.evaluate("({" + program + "})");
 
+	m_preacherLowerThirdTitle = SongFileParser::getPropertyString(object, "preacherLowerThirdTitle");
+	m_topicLowerThirdTitle = SongFileParser::getPropertyString(object, "topicLowerThirdTitle");
+	m_bibleTextLowerThirdTitle = SongFileParser::getPropertyString(object, "bibleTextLowerThirdTitle");
+
 	m_ffmpegPath = SongFileParser::getPropertyString(object, "ffmpegPath");
 	m_mediaPath = SongFileParser::getPropertyString(object, "casparcgMediaPath");
 	m_audioPath = SongFileParser::getPropertyString(object, "audioPath");
@@ -95,4 +99,19 @@ const QString & ConfigurationParser::getMediaPath() const
 const QString & ConfigurationParser::getFfmpegPath() const
 {
 	return m_ffmpegPath;
+}
+
+const QString & ConfigurationParser::getPreacherLowerThirdTitle() const
+{
+	return m_preacherLowerThirdTitle;
+}
+
+const QString & ConfigurationParser::getTopicLowerThirdTitle() const
+{
+	return m_topicLowerThirdTitle;
+}
+
+const QString & ConfigurationParser::getBibleTextLowerThirdTitle() const
+{
+	return m_bibleTextLowerThirdTitle;
 }
