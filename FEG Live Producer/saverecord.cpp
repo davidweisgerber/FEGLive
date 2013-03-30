@@ -147,9 +147,9 @@ void SaveRecord::copyVideo(QString to)
 		return;
 	}
 
-	QProgressDialog progressDialog(tr("Copying video file..."), tr("Cancel"), 0, 100, this);
-	progressDialog.setValue(0);
-	progressDialog.setWindowModality(Qt::WindowModal);
+	QProgressDialog *progressDialog = new QProgressDialog(tr("Copying video file..."), tr("Cancel"), 0, 100, this);
+	progressDialog->setValue(0);
+	progressDialog->setWindowModality(Qt::WindowModal);
 
 	const int bufferSize = 1024 * 1024;
 	char buffer[bufferSize];
@@ -163,9 +163,9 @@ void SaveRecord::copyVideo(QString to)
 		toFile.write(buffer, bytesRead);
 
 		written += bytesRead;
-		progressDialog.setValue((written * 100) / size);
+		progressDialog->setValue((written * 100) / size);
 
-		if (progressDialog.wasCanceled()) 
+		if (progressDialog->wasCanceled()) 
 		{
 			break;
 		}
@@ -175,6 +175,8 @@ void SaveRecord::copyVideo(QString to)
 
 	m_records[index].savedVideo = true;
 	buildList();
+
+	delete progressDialog;
 }
 
 void SaveRecord::saveAudioFinished(int exitCode, QProcess::ExitStatus exitStatus)
