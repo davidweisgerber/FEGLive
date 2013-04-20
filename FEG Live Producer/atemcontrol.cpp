@@ -23,6 +23,9 @@ ATEMControl::ATEMControl(QObject *parent)
 	m_timer->setInterval(200);
 	m_timer->setSingleShot(false);
 	m_timer->start();
+
+	m_lastPreview = -1;
+	m_lastProgram = -1;
 }
 
 ATEMControl::~ATEMControl()
@@ -135,6 +138,13 @@ void ATEMControl::timerTick()
 {
 	int program = m_con->programInput();
 	int preview = m_con->previewInput();
+
+	if (m_lastProgram != program || m_lastPreview != preview)
+	{
+		m_lastPreview = preview;
+		m_lastProgram = program;
+		emit takeHappened();
+	}
 
 	QMap<QToolButton *, ButtonInfo>::iterator it = m_buttonInfos.begin();
 	while (it != m_buttonInfos.end()) 

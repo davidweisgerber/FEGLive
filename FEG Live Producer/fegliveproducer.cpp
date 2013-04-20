@@ -36,6 +36,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_lastStartBroadcastClicked = QDateTime::currentDateTime();
 	m_lastStartRecordClicked = QDateTime::currentDateTime();
 	m_lastTakeClicked = QDateTime::currentDateTime();
+	m_lastTakeHappened = QDateTime::currentDateTime();
 
 	m_dialogOpen = false;
 
@@ -66,6 +67,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	connect(ui.takeButton, SIGNAL(clicked()), this, SLOT(takeClicked()));
 	connect(ui.autoTakeButton, SIGNAL(clicked(bool)), m_atem, SLOT(autoTakeChanged(bool)));
 	connect(ui.logoButton, SIGNAL(clicked()), this, SLOT(logoClicked()));
+	connect(m_atem, SIGNAL(takeHappened()), this, SLOT(takeHappened()));
 
 	m_casparCon = new CasparConnection(this);
 	m_casparCon->connectToHost("localhost", 5250);
@@ -233,6 +235,7 @@ void FEGLiveProducer::updateStuff()
 {
 	ui.recordLabel->setText(m_records->getRecordingTime());
 	ui.broadcastLabel->setText(m_broadcast->getBroadcastInformation());
+	ui.lastTakeLabel->setText(QString::number(m_lastTakeHappened.secsTo(QDateTime::currentDateTime())));
 }
 
 void FEGLiveProducer::recordClicked()
@@ -367,4 +370,9 @@ void FEGLiveProducer::takeClicked()
 		m_atem->take();
 		m_lastTakeClicked = QDateTime::currentDateTime();
 	}
+}
+
+void FEGLiveProducer::takeHappened()
+{
+	m_lastTakeHappened = QDateTime::currentDateTime();
 }

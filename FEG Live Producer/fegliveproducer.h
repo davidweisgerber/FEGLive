@@ -37,6 +37,7 @@ private slots:
 	void moveCasparCgOglWindow();
 	void toggleSecondMonitor();
 	void notesChanged();
+	void takeHappened();
 	
 private:
 	void doNastyStuff();
@@ -57,6 +58,8 @@ private:
 	QDateTime m_lastStartRecordClicked;
 	QDateTime m_lastStartBroadcastClicked;
 	QDateTime m_lastTakeClicked;
+
+	QDateTime m_lastTakeHappened;
 };
 
 #endif // FEGLIVEPRODUCER_H

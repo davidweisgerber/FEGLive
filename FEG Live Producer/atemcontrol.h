@@ -64,6 +64,9 @@ private slots:
 	void dipColourChanged(int index);
 	void transitionFramesChanged(int frames);
 
+signals:
+	void takeHappened();
+
 private:
 	void addAndConnectTransitionButton(QToolButton *button);
 	void autoTake(int button);
@@ -80,6 +83,9 @@ private:
 	QSpinBox *m_dipSpinBox;
 	QSpinBox *m_wipeSpinBox;
 	QComboBox *m_dipColourBox;
+
+	int m_lastProgram;
+	int m_lastPreview;
 };
 
 #endif // ATEMCONTROL_H
