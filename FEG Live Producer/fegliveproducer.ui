@@ -803,6 +803,9 @@ p, li { white-space: pre-wrap; }
            <height>96</height>
           </size>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
         </widget>
        </item>
       </layout>
@@ -821,6 +824,9 @@ p, li { white-space: pre-wrap; }
            <width>0</width>
            <height>96</height>
           </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
          </property>
         </widget>
        </item>
@@ -940,6 +946,41 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>lowerThirdsSelect</tabstop>
+  <tabstop>broadcastButton</tabstop>
+  <tabstop>recordButton</tabstop>
+  <tabstop>saveRecordButton</tabstop>
+  <tabstop>program1Button</tabstop>
+  <tabstop>program2Button</tabstop>
+  <tabstop>program3Button</tabstop>
+  <tabstop>program4Button</tabstop>
+  <tabstop>program5Button</tabstop>
+  <tabstop>program6Button</tabstop>
+  <tabstop>programBlackButton</tabstop>
+  <tabstop>autoTakeButton</tabstop>
+  <tabstop>hardButton</tabstop>
+  <tabstop>mixButton</tabstop>
+  <tabstop>mixSpinBox</tabstop>
+  <tabstop>dipButton</tabstop>
+  <tabstop>dipSpinBox</tabstop>
+  <tabstop>dipColourBox</tabstop>
+  <tabstop>wipeButton</tabstop>
+  <tabstop>wipeSpinBox</tabstop>
+  <tabstop>takeButton</tabstop>
+  <tabstop>preview1Button</tabstop>
+  <tabstop>preview2Button</tabstop>
+  <tabstop>preview3Button</tabstop>
+  <tabstop>preview4Button</tabstop>
+  <tabstop>preview5Button</tabstop>
+  <tabstop>preview6Button</tabstop>
+  <tabstop>previewBlackButton</tabstop>
+  <tabstop>notesEdit</tabstop>
+  <tabstop>backgroundTransitionComboBox</tabstop>
+  <tabstop>backgroundTransitionTime</tabstop>
+  <tabstop>logoButton</tabstop>
+  <tabstop>lowerThirdsTextSelect</tabstop>
+ </tabstops>
  <resources>
   <include location="fegliveproducer.qrc"/>
  </resources>

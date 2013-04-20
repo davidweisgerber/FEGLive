@@ -37,6 +37,8 @@ private slots:
 	
 private:
 	void doNastyStuff();
+	int inputFieldHasFocus( QKeyEvent * ev );
+
 	Ui::FEGLiveProducerClass ui;
 	CasparConnection *m_casparCon;
 	StartDialog *m_startDialog;
@@ -46,6 +48,8 @@ private:
 	BroadcastManager *m_broadcast;
 	QTimer *m_timer;
 	QFile m_notesFile;
+	QList<QWidget *> m_inputFields;
+	bool m_dialogOpen;
 };
 
 #endif // FEGLIVEPRODUCER_H

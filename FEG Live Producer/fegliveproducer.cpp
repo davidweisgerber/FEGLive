@@ -26,6 +26,15 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	QCoreApplication::setApplicationName("FEG Live Producer");
 	QCoreApplication::setOrganizationName("FEGMM");
 	
+	// Input fields that block atem control
+	m_inputFields.append(ui.notesEdit);
+	m_inputFields.append(ui.mixSpinBox);
+	m_inputFields.append(ui.dipSpinBox);
+	m_inputFields.append(ui.wipeSpinBox);
+	m_inputFields.append(ui.backgroundTransitionTime);
+
+	m_dialogOpen = false;
+
 	m_atem = new ATEMControl(this);
 	m_atem->addButtonInfo(ui.preview1Button, ATEMControl::ButtonInfo(1, false, ""));
 	m_atem->addButtonInfo(ui.preview2Button, ATEMControl::ButtonInfo(2, false, ""));
@@ -68,7 +77,9 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	ui.backgroundProgramWidget->setBackgroundTransitionTime(ui.backgroundTransitionTime->value());
 
 	m_startDialog = new StartDialog(this);
+	m_dialogOpen = true;
 	m_startDialog->exec();
+	m_dialogOpen = false;
 
 	setWindowState(Qt::WindowMaximized);
 
@@ -133,6 +144,17 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 	case QEvent::KeyPress:
 		{
 			QKeyEvent *ev = dynamic_cast<QKeyEvent *>(e);
+
+			int ret = inputFieldHasFocus(ev);
+			if (ret == 1)
+			{
+				return true;
+			} 
+			else if (ret == 0)
+			{
+				return false;
+			}
+			
 				
 			if (ev->key() == Qt::Key_Left)
 			{
@@ -152,11 +174,7 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 			}
 			else if (ev->key() == Qt::Key_Tab)
 			{
-				if (ui.notesEdit->hasFocus())
-				{
-					ui.notesEdit->clearFocus();
-					return true;
-				}
+				return true;
 			}
 			else
 			{
@@ -239,14 +257,18 @@ void FEGLiveProducer::logoClicked()
 
 void FEGLiveProducer::saveRecordsClicked()
 {
+	m_dialogOpen = true;
 	SaveRecord saver(m_records->getRecordings(), m_startDialog, m_config, this);
 	saver.exec();
+	m_dialogOpen = false;
 }
 
 void FEGLiveProducer::addLowerThird()
 {
+	m_dialogOpen = true;
 	AddLowerThirdDialog dlg(ui.lowerThirdsSelect, m_config, 0);
 	dlg.exec();
+	m_dialogOpen = false;
 }
 
 void FEGLiveProducer::toggleSecondMonitor()
@@ -271,4 +293,29 @@ void FEGLiveProducer::notesChanged()
 		m_notesFile.write(noteText);
 		m_notesFile.resize(noteText.length());
 	}
+}
+
+int FEGLiveProducer::inputFieldHasFocus( QKeyEvent * ev )
+{
+	foreach (QWidget *widget, m_inputFields)
+	{
+		if (widget->hasFocus()) 
+		{
+			if (ev->key() == Qt::Key_Tab)
+			{
+				ui.lowerThirdsSelect->setFocus();
+				ev->accept();
+				return 1;
+			}
+
+			return 0;
+		}
+	}
+
+	if (m_dialogOpen)
+	{
+		return 0;
+	}
+
+	return -1;
 }

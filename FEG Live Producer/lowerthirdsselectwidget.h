@@ -24,6 +24,8 @@ public slots:
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;
 	virtual void mouseReleaseEvent(QMouseEvent *e) override;
+	virtual void keyPressEvent(QKeyEvent *ev) override;
+	virtual void keyReleaseEvent(QKeyEvent *ev) override;
 
 signals:
 	void lowerThirdChanged(const LowerThird &lowerThird);

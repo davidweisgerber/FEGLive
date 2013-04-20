@@ -99,3 +99,13 @@ void LowerThirdsSelectWidget::previous()
 		update();
 	}
 }
+
+void LowerThirdsSelectWidget::keyPressEvent( QKeyEvent *ev )
+{
+	ev->accept();
+}
+
+void LowerThirdsSelectWidget::keyReleaseEvent( QKeyEvent *ev )
+{
+	ev->accept();
+}
