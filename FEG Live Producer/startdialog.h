@@ -8,6 +8,8 @@
 
 namespace Ui {class StartDialog;};
 
+class QTranslator;
+
 class StartDialog : public QDialog
 {
 	Q_OBJECT
@@ -24,9 +26,17 @@ public:
 	QString getConfigurationFileName() const;
 	QStringList getSongs() const;
 
+private slots:
+	void languageChanged(int index);
+
 private:
 	Ui::StartDialog *ui;
 	QString m_songDir;
+
+	QTranslator *m_translationDE;
+	QTranslator *m_translationEN;
+
+	bool m_changingLanguage;
 };
 
 #endif // STARTDIALOG_H

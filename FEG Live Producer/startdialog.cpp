@@ -1,11 +1,20 @@
 #include "startdialog.h"
 #include <QSettings>
 #include <QDir>
+#include <QTranslator>
 #include "ui_startdialog.h"
 
 StartDialog::StartDialog(QWidget *parent)
 	: QDialog(parent)
 {
+	m_translationDE = new QTranslator();
+	m_translationEN = new QTranslator();
+
+	m_translationDE->load(":/FEGLiveProducer/de");
+	m_translationEN->load(":/FEGLiveProducer/en");
+
+	qApp->installTranslator(m_translationDE);
+
 	ui = new Ui::StartDialog();
 	ui->setupUi(this);
 
@@ -19,6 +28,9 @@ StartDialog::StartDialog(QWidget *parent)
 	foreach (QString string, list) {
 		ui->songSelectWidget->addItem(string.mid(0, string.length() - 3));
 	}
+
+	connect(ui->languageComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChanged(int)));
+	m_changingLanguage = false;
 }
 
 StartDialog::~StartDialog()
@@ -67,3 +79,27 @@ QStringList StartDialog::getSongs() const
 	return ret;
 }
 
+void StartDialog::languageChanged(int index)
+{
+	if (m_changingLanguage)
+	{
+		return;
+	}
+
+	qApp->removeTranslator(m_translationDE);
+	qApp->removeTranslator(m_translationEN);
+
+	if (index == 0)
+	{
+		qApp->installTranslator(m_translationDE);
+	}
+	else if (index == 1)
+	{
+		qApp->installTranslator(m_translationEN);
+	}
+
+	m_changingLanguage = true;
+	ui->retranslateUi(this);
+	ui->languageComboBox->setCurrentIndex(index);
+	m_changingLanguage = false;
+}

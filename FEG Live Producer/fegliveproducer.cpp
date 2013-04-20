@@ -135,6 +135,8 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 		ui.notesEdit->setText(tr("notes.txt could not be opened. That means that notes are not available in this session."));
 	}
 	connect(ui.notesEdit, SIGNAL(textChanged()), this, SLOT(notesChanged()));
+
+	ui.retranslateUi(this);
 }
 
 FEGLiveProducer::~FEGLiveProducer()
@@ -147,6 +149,9 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 {
 	switch (e->type())
 	{
+	case QEvent::LanguageChange:
+		ui.retranslateUi(this);
+		break;
 	case QEvent::KeyPress:
 		{
 			QKeyEvent *ev = dynamic_cast<QKeyEvent *>(e);

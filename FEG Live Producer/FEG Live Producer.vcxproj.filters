@@ -42,6 +42,11 @@
     <Filter Include="Testfiles">
       <UniqueIdentifier>{deb6bc3e-58b3-404e-98f2-0d4b3d0baf54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -319,6 +324,12 @@
     </None>
     <None Include="lowerthirdtext.png">
       <Filter>Images</Filter>
+    </None>
+    <None Include="de.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="en.ts">
+      <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
 </Project>

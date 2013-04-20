@@ -403,6 +403,8 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
     <None Include="camera.png" />
+    <None Include="de.ts" />
+    <None Include="en.ts" />
     <None Include="lowerthird.png" />
     <None Include="lowerthirdtext.png" />
     <None Include="off.png" />

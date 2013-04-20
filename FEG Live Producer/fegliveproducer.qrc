@@ -5,5 +5,7 @@
         <file>video.png</file>
         <file>lowerthird.png</file>
         <file>lowerthirdtext.png</file>
+        <file>de.qm</file>
+        <file>en.qm</file>
     </qresource>
 </RCC>
