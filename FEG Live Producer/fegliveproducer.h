@@ -2,6 +2,7 @@
 #define FEGLIVEPRODUCER_H
 
 #include <QtGui/QMainWindow>
+#include <QDateTime>
 #include <QFile>
 #include "ui_fegliveproducer.h"
 
@@ -28,6 +29,8 @@ protected:
 private slots:
 	void updateStuff();
 	void recordClicked();
+	void broadcastClicked();
+	void takeClicked();
 	void logoClicked();
 	void saveRecordsClicked();
 	void addLowerThird();
@@ -50,6 +53,10 @@ private:
 	QFile m_notesFile;
 	QList<QWidget *> m_inputFields;
 	bool m_dialogOpen;
+
+	QDateTime m_lastStartRecordClicked;
+	QDateTime m_lastStartBroadcastClicked;
+	QDateTime m_lastTakeClicked;
 };
 
 #endif // FEGLIVEPRODUCER_H

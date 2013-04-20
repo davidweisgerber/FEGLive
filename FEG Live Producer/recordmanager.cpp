@@ -77,3 +77,8 @@ const QList<RecordManager::Recording> & RecordManager::getRecordings()
 {
 	return m_records;
 }
+
+bool RecordManager::isRecording()
+{
+	return m_running;
+}

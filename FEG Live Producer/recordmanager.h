@@ -31,6 +31,7 @@ public:
 
 	QString getRecordingTime();
 	const QList<Recording> &getRecordings();
+	bool isRecording();
 
 public slots:
 	void start();

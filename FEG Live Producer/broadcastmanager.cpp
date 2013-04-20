@@ -63,3 +63,8 @@ void BroadcastManager::moveWindow()
 
 	SetWindowPos(hCasparCgWindow, HWND_TOPMOST, 413, 402, 600, 200, SWP_NOACTIVATE);
 }
+
+bool BroadcastManager::isBroadcasting()
+{
+	return m_isBroadcasting;
+}

@@ -33,6 +33,10 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_inputFields.append(ui.wipeSpinBox);
 	m_inputFields.append(ui.backgroundTransitionTime);
 
+	m_lastStartBroadcastClicked = QDateTime::currentDateTime();
+	m_lastStartRecordClicked = QDateTime::currentDateTime();
+	m_lastTakeClicked = QDateTime::currentDateTime();
+
 	m_dialogOpen = false;
 
 	m_atem = new ATEMControl(this);
@@ -59,7 +63,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	m_atem->setWipeSpinBox(ui.wipeSpinBox);
 	m_atem->setDipColourBox(ui.dipColourBox);
 
-	connect(ui.takeButton, SIGNAL(clicked()), m_atem, SLOT(take()));
+	connect(ui.takeButton, SIGNAL(clicked()), this, SLOT(takeClicked()));
 	connect(ui.autoTakeButton, SIGNAL(clicked(bool)), m_atem, SLOT(autoTakeChanged(bool)));
 	connect(ui.logoButton, SIGNAL(clicked()), this, SLOT(logoClicked()));
 
@@ -115,7 +119,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	connect(ui.saveRecordButton, SIGNAL(clicked()), this, SLOT(saveRecordsClicked()));
 
 	m_broadcast = new BroadcastManager(m_casparCon, this);
-	connect(ui.broadcastButton, SIGNAL(clicked()), m_broadcast, SLOT(broadcastClicked()));
+	connect(ui.broadcastButton, SIGNAL(clicked()), this, SLOT(broadcastClicked()));
 
 	m_timer = new QTimer();
 	m_timer->setInterval(1000);
@@ -233,14 +237,30 @@ void FEGLiveProducer::updateStuff()
 
 void FEGLiveProducer::recordClicked()
 {
-	if (ui.recordButton->isChecked())
+	if (m_lastStartRecordClicked.msecsTo(QDateTime::currentDateTime()) > 1000)
 	{
-		m_records->start();
+		if (ui.recordButton->isChecked())
+		{
+			m_records->start();
+		}
+		else
+		{
+			m_records->end();
+		}
+		m_lastStartRecordClicked = QDateTime::currentDateTime();
 	}
 	else
 	{
-		m_records->end();
+		if (m_records->isRecording())
+		{
+			ui.recordButton->setDown(true);
+		}
+		else
+		{
+			ui.recordButton->setDown(false);
+		}
 	}
+	
 }
 
 void FEGLiveProducer::logoClicked()
@@ -318,4 +338,33 @@ int FEGLiveProducer::inputFieldHasFocus( QKeyEvent * ev )
 	}
 
 	return -1;
+}
+
+void FEGLiveProducer::broadcastClicked()
+{
+	if (m_lastStartBroadcastClicked.msecsTo(QDateTime::currentDateTime()) > 1000)
+	{
+		m_broadcast->broadcastClicked();
+		m_lastStartBroadcastClicked = QDateTime::currentDateTime();
+	}
+	else
+	{
+		if (m_broadcast->isBroadcasting())
+		{
+			ui.broadcastButton->setDown(true);
+		}
+		else
+		{
+			ui.broadcastButton->setDown(false);
+		}
+	}
+}
+
+void FEGLiveProducer::takeClicked()
+{
+	if (m_lastTakeClicked.msecsTo(QDateTime::currentDateTime()) > 1000)
+	{
+		m_atem->take();
+		m_lastTakeClicked = QDateTime::currentDateTime();
+	}
 }

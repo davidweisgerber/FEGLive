@@ -15,6 +15,7 @@ public:
 	~BroadcastManager();
 
 	QString getBroadcastInformation();
+	bool isBroadcasting();
 
 public slots:
 	void broadcastClicked();
