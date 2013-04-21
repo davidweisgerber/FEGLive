@@ -85,7 +85,6 @@ private:
 	QComboBox *m_dipColourBox;
 
 	int m_lastProgram;
-	int m_lastPreview;
 };
 
 #endif // ATEMCONTROL_H

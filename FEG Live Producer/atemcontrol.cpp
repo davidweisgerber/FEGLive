@@ -24,7 +24,6 @@ ATEMControl::ATEMControl(QObject *parent)
 	m_timer->setSingleShot(false);
 	m_timer->start();
 
-	m_lastPreview = -1;
 	m_lastProgram = -1;
 }
 
@@ -139,9 +138,8 @@ void ATEMControl::timerTick()
 	int program = m_con->programInput();
 	int preview = m_con->previewInput();
 
-	if (m_lastProgram != program || m_lastPreview != preview)
+	if (m_lastProgram != program)
 	{
-		m_lastPreview = preview;
 		m_lastProgram = program;
 		emit takeHappened();
 	}
