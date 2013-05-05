@@ -1,3 +1,4 @@
+#include <QSettings>
 #include <QProcess>
 #include <QTimer>
 #include <Windows.h>
@@ -46,6 +47,10 @@ void BroadcastManager::broadcastClicked()
 
 void BroadcastManager::loadAndPlaceTCPRelay()
 {
+	QSettings tcpRelaySettings(QSettings::NativeFormat, QSettings::UserScope, "StrikerX3", "TCPRelay");
+	tcpRelaySettings.setValue("LastTargetURI", "rtmp://streaming.cloud.fegmm.de/");
+	tcpRelaySettings.setValue("LastListenPort", 1935);
+
 	QProcess::startDetached("TCPRelay.exe");
 	QTimer::singleShot(500, this, SLOT(moveWindow()));
 }
