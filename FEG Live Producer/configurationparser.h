@@ -3,7 +3,8 @@
 
 #include <QString>
 #include <QList>
-#include <selectdata.h>
+#include "selectdata.h"
+#include "lowerthirdstext.h"
 
 class ConfigurationParser
 {
@@ -25,6 +26,9 @@ public:
 	const QString &getPreacherLowerThirdTitle() const;
 	const QString &getTopicLowerThirdTitle() const;
 	const QString &getBibleTextLowerThirdTitle() const;
+	QStringList getPreConfiguredSongs() const;
+	const QStringList &getPreConfiguredLowerThirds() const;
+	QList<LowerThirdsText> getPreConfiguredLowerThirdsList() const;
 
 
 private:
@@ -37,6 +41,8 @@ private:
 	QString m_audioPath;
 	QString m_mediaPath;
 	QString m_ffmpegPath;
+	QStringList m_preConfiguredSongs;
+	QStringList m_preConfiguredLowerThirds;
 
 	QString m_preacherLowerThirdTitle;
 	QString m_topicLowerThirdTitle;
