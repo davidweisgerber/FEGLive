@@ -11,6 +11,7 @@
 #include "broadcastmanager.h"
 #include "saverecord.h"
 #include "addlowerthirddialog.h"
+#include "jsonserializer.h"
 #include "fegliveproducer.h"
 
 FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
@@ -90,8 +91,17 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	setWindowState(Qt::WindowMaximized);
 
 	m_config = new ConfigurationParser();
-	m_config->parseFromFile(m_startDialog->getConfigurationFileName());
+	QFile configFileFile(m_startDialog->getConfigurationFileName());
+	configFileFile.open(QIODevice::ReadOnly);
+	QByteArray configFile = "{" + configFileFile.readAll() + "}";
 
+	JSONSerializer serializer;
+	int listSelectDataId = qRegisterMetaType<QList<SelectData *> >("QList<SelectData*>");
+	serializer.registerUserType(listSelectDataId, new ConfigurationParser::ListSelectDataSerializer());
+	serializer.deserialize(configFile, m_config);
+
+	qDebug("%s", serializer.serialize(*m_config).data());
+	
 	LowerThirdsText preacher(m_startDialog->getPreacher(), m_config->getPreacherLowerThirdTitle());
 	LowerThirdsText bibleText(m_startDialog->getBibleText(), m_config->getBibleTextLowerThirdTitle());
 	LowerThirdsText topic(m_startDialog->getSermonTitle(), m_config->getTopicLowerThirdTitle());

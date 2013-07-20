@@ -4,6 +4,8 @@
 #include <QVariant>
 #include <QString>
 
+class QScriptValue;
+
 class UserTypeSerializer 
 {
 public:
@@ -11,7 +13,7 @@ public:
 	~UserTypeSerializer() {}
 
 	virtual QString serialize(QVariant variant) {return "";}
-	virtual QVariant deserialize(const QString json) {return QVariant(QVariant::String);}
+	virtual QVariant deserialize(const QScriptValue &script) {return QVariant(QVariant::String);}
 };
 
 #endif // usertypeserializer_h__

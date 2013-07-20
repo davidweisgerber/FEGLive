@@ -135,12 +135,24 @@ QString ConfigurationParser::ListSelectDataSerializer::serialize(QVariant varian
 		ret += "\"data:\":\"" + selectData->getData() + "\"},";
 	}
 
-	return ret.replace(ret.length() - 1, 1, "]");
+	JSONSerializer::sanitizeList(&ret, selectDatas.size(), "]");
+	return ret;
 }
 
-QVariant ConfigurationParser::ListSelectDataSerializer::deserialize( const QString json )
+QVariant ConfigurationParser::ListSelectDataSerializer::deserialize(const QScriptValue &script)
 {
-	throw std::exception("The method or operation is not implemented.");
+	QList<SelectData *> selectData;
+	for (int i=0; script.property(i).isObject(); i++) 
+	{
+		SelectData *data = new SelectData(
+			QPixmap(script.property(i).property("icon").toString()),
+			script.property(i).property("name").toString(),
+			script.property(i).property("data").toString(),
+			script.property(i).property("icon").toString());
+		selectData.append(data);
+	}
+
+	return QVariant::fromValue(selectData);
 }
 
 QStringList ConfigurationParser::getPreConfiguredSongs() const
@@ -174,4 +186,74 @@ QList<LowerThirdsText> ConfigurationParser::getPreConfiguredLowerThirdsList() co
 	}
 
 	return returnValue;
+}
+
+void ConfigurationParser::setSongLowerThird( const QString &lowerThird )
+{
+	m_songLowerThird = lowerThird;
+}
+
+void ConfigurationParser::setGeneralLowerThird( const QString &lowerThird )
+{
+	m_generalLowerThird = lowerThird;
+}
+
+void ConfigurationParser::setLogo( const QString &logo )
+{
+	m_logo = logo;
+}
+
+void ConfigurationParser::setProgram(const QList<SelectData *> &program)
+{
+	m_programs = program;
+}
+
+void ConfigurationParser::setDefaultClip(int defaultClip )
+{
+	m_defaultClip = defaultClip;
+}
+
+void ConfigurationParser::setVideoPath( const QString &videoPath )
+{
+	m_videoPath = videoPath;
+}
+
+void ConfigurationParser::setAudioPath( const QString &audioPath )
+{
+	m_audioPath = audioPath;
+}
+
+void ConfigurationParser::setMediaPath( const QString &mediaPath )
+{
+	m_mediaPath = mediaPath;
+}
+
+void ConfigurationParser::setFfmpegPath( const QString &ffmpegPath )
+{
+	m_ffmpegPath = ffmpegPath;
+}
+
+void ConfigurationParser::setPreacherLowerThirdTitle( const QString &preacherLowerThirdTitle )
+{
+	m_preacherLowerThirdTitle = preacherLowerThirdTitle;
+}
+
+void ConfigurationParser::setTopicLowerThirdTitle( const QString &topicLowerThird )
+{
+	m_topicLowerThirdTitle = topicLowerThird;
+}
+
+void ConfigurationParser::setBibleTextLowerThirdTitle( const QString &lowerThird )
+{
+	m_bibleTextLowerThirdTitle = lowerThird;
+}
+
+void ConfigurationParser::setPreConfiguredSongs( const QStringList &songs )
+{
+	m_preConfiguredSongs = songs;
+}
+
+void ConfigurationParser::setPreConfiguredLowerThirds( const QStringList &lowerThird )
+{
+	m_preConfiguredLowerThirds = lowerThird;
 }

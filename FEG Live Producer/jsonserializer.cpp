@@ -193,7 +193,7 @@ void JSONSerializer::deserializeProperty(const QScriptValue &json, QMetaProperty
 		property.write(out, QVariant(value.toString() == "true"));
 		break;
 	case QVariant::UserType:
-		property.write(out, m_serializers[property.userType()]->deserialize(value.toString()));
+		property.write(out, m_serializers[property.userType()]->deserialize(json.property(property.name())));
 		break;
 	default:
 		property.write(out, value);

@@ -29,13 +29,13 @@ public:
 	void deserialize(QString json, QVariant *out);
 
 	static QString sanitizeString(QString str);
+	static void sanitizeList(QString *stringToSanitize, int numberOfItems, const QString &endCharacter);
 	void registerUserType(int typeID, UserTypeSerializer *serializer);
 
 private:
 	void serializeProperty(const QMetaProperty &property, const QObject &object, QString* jsonObject);
 	void serializeVariant(const QVariant &variant, QString* jsonObject);
 	void deserializeProperty(const QScriptValue &json, QMetaProperty property, QObject *out );
-	void sanitizeList(QString *stringToSanitize, int numberOfItems, const QString &endCharacter);
 
 	QMap<int, UserTypeSerializer *> m_serializers;
 };
