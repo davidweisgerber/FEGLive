@@ -1,9 +1,10 @@
 #include "selectdata.h"
 
-SelectData::SelectData( const QPixmap &icon, const QString &name, const QString &data ) :
+SelectData::SelectData( const QPixmap &icon, const QString &name, const QString &data, const QString &iconName ) :
 	m_icon (icon),
 	m_name (name),
-	m_data (data)
+	m_data (data),
+	m_iconName (iconName)
 {
 }
 
@@ -25,4 +26,9 @@ const QString & SelectData::getName()
 const QString & SelectData::getData()
 {
 	return m_data;
+}
+
+const QString & SelectData::getIconName()
+{
+	return m_iconName;
 }

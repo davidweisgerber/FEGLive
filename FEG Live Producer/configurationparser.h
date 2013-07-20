@@ -1,13 +1,42 @@
 #ifndef CONFIGURATIONPARSER_H
 #define CONFIGURATIONPARSER_H
 
+#include <QObject>
 #include <QString>
 #include <QList>
+#include <QMetaType>
+#include <usertypeserializer.h>
 #include <selectdata.h>
 
-class ConfigurationParser
+Q_DECLARE_METATYPE(QList<SelectData *>)
+
+class ConfigurationParser : public QObject
 {
+	Q_OBJECT
+	Q_PROPERTY(QString logo READ getLogo)
+	Q_PROPERTY(QString songLowerThird READ getSongLowerThird)
+	Q_PROPERTY(QString generalLowerThird READ getGeneralLowerThird)
+	Q_PROPERTY(QList<SelectData *> program READ getProgram)
+	Q_PROPERTY(int defaultClip READ getDefaultClip)
+	Q_PROPERTY(QString videoPath READ getVideoPath)
+	Q_PROPERTY(QString audioPath READ getAudioPath)
+	Q_PROPERTY(QString mediaPath READ getMediaPath)
+	Q_PROPERTY(QString ffmpegPath READ getFfmpegPath)
+	Q_PROPERTY(QString preacherLowerThirdTitle READ getPreacherLowerThirdTitle)
+	Q_PROPERTY(QString topicLowerThirdTitle READ getTopicLowerThirdTitle)
+	Q_PROPERTY(QString bibleTextLowerThirdTitle READ getBibleTextLowerThirdTitle)
+
+
 public:
+
+	class ListSelectDataSerializer : public UserTypeSerializer 
+	{
+	public:
+		ListSelectDataSerializer();
+		virtual QString serialize( QVariant variant );
+		virtual QVariant deserialize( const QString json );
+	};
+
 	ConfigurationParser();
 	~ConfigurationParser();
 

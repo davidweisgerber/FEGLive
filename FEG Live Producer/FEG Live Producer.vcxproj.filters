@@ -47,6 +47,9 @@
       <Extensions>ts</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="JSONSerializer">
+      <UniqueIdentifier>{4f93d071-0c6a-486f-8a46-b3589a49ab8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -199,6 +202,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_addlowerthirddialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="jsonserializer.cpp">
+      <Filter>JSONSerializer</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_configurationparser.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_configurationparser.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fegliveproducer.h">
@@ -264,6 +276,9 @@
     <CustomBuild Include="addlowerthirddialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="configurationparser.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_fegliveproducer.h">
@@ -290,9 +305,6 @@
     <ClInclude Include="TimeType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="configurationparser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_optionsmenu.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -301,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_addlowerthirddialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jsonserializer.h">
+      <Filter>JSONSerializer</Filter>
+    </ClInclude>
+    <ClInclude Include="usertypeserializer.h">
+      <Filter>JSONSerializer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

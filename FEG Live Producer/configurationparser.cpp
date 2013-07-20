@@ -2,9 +2,10 @@
 #include <QScriptEngine>
 #include <QScriptValue>
 #include "songfileparser.h"
+#include "jsonserializer.h"
 #include "configurationparser.h"
 
-ConfigurationParser::ConfigurationParser()
+ConfigurationParser::ConfigurationParser() : QObject()
 {
 	m_defaultClip = 0;
 }
@@ -48,7 +49,8 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 		SelectData *data = new SelectData(
 			QPixmap(object.property("clips").property(i).property("icon").toString()),
 			object.property("clips").property(i).property("name").toString(),
-			object.property("clips").property(i).property("data").toString());
+			object.property("clips").property(i).property("data").toString(),
+			object.property("clips").property(i).property("icon").toString());
 		m_programs.push_back(data);
 		i++;
 	}
@@ -114,4 +116,29 @@ const QString & ConfigurationParser::getTopicLowerThirdTitle() const
 const QString & ConfigurationParser::getBibleTextLowerThirdTitle() const
 {
 	return m_bibleTextLowerThirdTitle;
+}
+
+QString ConfigurationParser::ListSelectDataSerializer::serialize(QVariant variant)
+{
+	QList<SelectData *> selectDatas = variant.value<QList<SelectData *> >();
+
+	QString ret = "[";
+	foreach (SelectData *selectData, selectDatas)
+	{
+		ret += "{\"icon\":\"" + selectData->getIconName() + "\",";
+		ret += "\"name\":\"" + selectData->getName() + "\",";
+		ret += "\"data:\":\"" + selectData->getData() + "\"},";
+	}
+
+	return ret.replace(ret.length() - 1, 1, "]");
+}
+
+QVariant ConfigurationParser::ListSelectDataSerializer::deserialize( const QString json )
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+ConfigurationParser::ListSelectDataSerializer::ListSelectDataSerializer()
+{
+	
 }
