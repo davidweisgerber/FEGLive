@@ -90,14 +90,21 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 	setWindowState(Qt::WindowMaximized);
 
 	m_config = new ConfigurationParser();
-	m_config->parseFromFile("config/default.js");
+	m_config->parseFromFile(m_startDialog->getConfigurationFileName());
 
 	LowerThirdsText preacher(m_startDialog->getPreacher(), m_config->getPreacherLowerThirdTitle());
 	LowerThirdsText bibleText(m_startDialog->getBibleText(), m_config->getBibleTextLowerThirdTitle());
 	LowerThirdsText topic(m_startDialog->getSermonTitle(), m_config->getTopicLowerThirdTitle());
 
-	LowerThird generalLowerThird(tr("General"), m_config->getGeneralLowerThird(), QList<LowerThirdsText>() << preacher << bibleText << topic); 
+	LowerThird generalLowerThird(tr("General"), m_config->getGeneralLowerThird(), QList<LowerThirdsText>() << m_config->getPreConfiguredLowerThirdsList() << preacher << bibleText << topic); 
 	ui.lowerThirdsSelect->addLowerThird(generalLowerThird);
+
+	foreach (QString song, m_config->getPreConfiguredSongs()) {
+		SongFileParser songFile;
+		songFile.parseFromFile(song);
+
+		ui.lowerThirdsSelect->addLowerThird(songFile.toLowerThird(m_config->getSongLowerThird()));
+	}
 
 	foreach (QString song, m_startDialog->getSongs()) {
 		SongFileParser songFile;

@@ -2,6 +2,7 @@
 #include <QSettings>
 #include <QDir>
 #include <QTranslator>
+#include <QFileDialog>
 #include "ui_startdialog.h"
 
 StartDialog::StartDialog(QWidget *parent)
@@ -19,7 +20,7 @@ StartDialog::StartDialog(QWidget *parent)
 	ui->setupUi(this);
 
 	ui->dateEdit->setDate(QDate::currentDate());
-	ui->configurationLabel->setText("default.js");
+	ui->configurationLabel->setText("config/default.js");
 
 	QSettings settings;
 	m_songDir = settings.value("songdir", "songs/").toString();
@@ -30,6 +31,7 @@ StartDialog::StartDialog(QWidget *parent)
 	}
 
 	connect(ui->languageComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChanged(int)));
+	connect(ui->changeConfigurationButton, SIGNAL(clicked()), this, SLOT(selectConfigurationButtonClicked()));
 	m_changingLanguage = false;
 }
 
@@ -102,4 +104,14 @@ void StartDialog::languageChanged(int index)
 	ui->retranslateUi(this);
 	ui->languageComboBox->setCurrentIndex(index);
 	m_changingLanguage = false;
+}
+
+void StartDialog::selectConfigurationButtonClicked()
+{
+	QString newConfiguration = QFileDialog::getOpenFileName(this, tr("Select Configuration File"), QDir::currentPath(), tr("JSON Configuration files (*.js)"));
+
+	if (newConfiguration.isEmpty() == false) 
+	{
+		ui->configurationLabel->setText(newConfiguration);
+	}
 }

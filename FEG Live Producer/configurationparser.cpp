@@ -1,6 +1,7 @@
 #include <QFile>
 #include <QScriptEngine>
 #include <QScriptValue>
+#include <QSettings>
 #include "songfileparser.h"
 #include "jsonserializer.h"
 #include "configurationparser.h"
@@ -40,6 +41,10 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 	m_logo = SongFileParser::getPropertyString(object, "logoTemplate");
 	m_songLowerThird = SongFileParser::getPropertyString(object, "songTemplate");
 	m_generalLowerThird = SongFileParser::getPropertyString(object, "generalTemplate");
+
+	m_preConfiguredLowerThirds = object.property("lowerThirds").toVariant().toStringList();
+	m_preConfiguredSongs = object.property("songs").toVariant().toStringList();
+
 	if (object.property("defaultClip").isNumber()) {
 		m_defaultClip = object.property("defaultClip").toInt32();
 	}
@@ -138,7 +143,35 @@ QVariant ConfigurationParser::ListSelectDataSerializer::deserialize( const QStri
 	throw std::exception("The method or operation is not implemented.");
 }
 
-ConfigurationParser::ListSelectDataSerializer::ListSelectDataSerializer()
+QStringList ConfigurationParser::getPreConfiguredSongs() const
 {
-	
+	QSettings settings;
+	QString songDir = settings.value("songdir", "songs/").toString();
+
+	QStringList ret;
+	foreach (QString item, m_preConfiguredSongs) {
+		ret << songDir + "/" + item + ".js";
+	}
+
+	return ret;
+}
+
+const QStringList & ConfigurationParser::getPreConfiguredLowerThirds() const
+{
+	return m_preConfiguredLowerThirds;
+}
+
+QList<LowerThirdsText> ConfigurationParser::getPreConfiguredLowerThirdsList() const
+{
+	QList<LowerThirdsText> returnValue;
+	foreach (QString lowerThirdsText, m_preConfiguredLowerThirds) {
+		QStringList lines = lowerThirdsText.split("\n");
+		while (lines.count() < 2) {
+			lines.append("");
+		}
+
+		returnValue.append(LowerThirdsText(lines[0], lines[1]));
+	}
+
+	return returnValue;
 }
