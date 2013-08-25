@@ -20,7 +20,7 @@ public:
 	void setCasparConnection(CasparConnection *con);
 
 public slots:
-	void setLowerThird(const LowerThird &lowerThird);
+	void setLowerThird(LowerThird &lowerThird);
 	void left();
 	void right();
 

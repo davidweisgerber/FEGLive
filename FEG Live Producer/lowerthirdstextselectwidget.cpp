@@ -92,7 +92,7 @@ void LowerThirdsTextSelectWidget::mouseReleaseEvent( QMouseEvent *e )
 	}
 }
 
-void LowerThirdsTextSelectWidget::setLowerThird( const LowerThird &lowerThird )
+void LowerThirdsTextSelectWidget::setLowerThird(LowerThird &lowerThird )
 {
 	setTexts(lowerThird.getTexts());
 	m_movie = lowerThird.getMovie();

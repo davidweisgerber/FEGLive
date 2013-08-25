@@ -17,6 +17,10 @@ LowerThirdsSelectWidget::~LowerThirdsSelectWidget()
 void LowerThirdsSelectWidget::addLowerThird(const LowerThird &lowerThird)
 {
 	m_lowerThirds.push_back(lowerThird);
+	if (m_current == -1)
+	{
+		m_current = 0;
+	}
 	update();
 }
 
@@ -108,4 +112,12 @@ void LowerThirdsSelectWidget::keyPressEvent( QKeyEvent *ev )
 void LowerThirdsSelectWidget::keyReleaseEvent( QKeyEvent *ev )
 {
 	ev->accept();
+}
+
+void LowerThirdsSelectWidget::updateGeneral()
+{
+	if (m_current == 0)
+	{
+		emit lowerThirdChanged(m_lowerThirds[0]);
+	}
 }

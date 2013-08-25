@@ -18,6 +18,16 @@ public:
 private slots:
 	void addSong();
 	void addCustom();
+	void refreshLowerThirds();
+	void existingLowerThirdChanged(int row);
+	void saveLowerThird();
+	void deleteLowerThird();
+
+protected:
+	void showEvent(QShowEvent *);
+
+signals:
+	void changed();
 
 private:
 	Ui::AddLowerThirdDialog *ui;

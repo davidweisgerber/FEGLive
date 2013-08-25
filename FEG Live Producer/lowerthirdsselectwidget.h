@@ -20,6 +20,7 @@ public:
 public slots:
 	void next();
 	void previous();
+	void updateGeneral();
 
 protected:
 	virtual void paintEvent(QPaintEvent *ev) override;
@@ -28,7 +29,7 @@ protected:
 	virtual void keyReleaseEvent(QKeyEvent *ev) override;
 
 signals:
-	void lowerThirdChanged(const LowerThird &lowerThird);
+	void lowerThirdChanged(LowerThird &lowerThird);
 
 private:
 	QList<LowerThird> m_lowerThirds;

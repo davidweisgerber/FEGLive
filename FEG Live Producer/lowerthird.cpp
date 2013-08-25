@@ -23,7 +23,7 @@ const QString & LowerThird::getMovie() const
 	return m_movie;
 }
 
-const QList<LowerThirdsText> & LowerThird::getTexts() const
+QList<LowerThirdsText> & LowerThird::getTexts() 
 {
 	return m_texts;
 }
@@ -31,4 +31,9 @@ const QList<LowerThirdsText> & LowerThird::getTexts() const
 void LowerThird::addText( const LowerThirdsText &text )
 {
 	m_texts.push_back(text);
+}
+
+void LowerThird::removeText(int index)
+{
+	m_texts.removeAt(index);
 }

@@ -12,6 +12,9 @@ public:
 	const QString &getLine1() const;
 	const QString &getLine2() const;
 
+	void setLine1(const QString &line1);
+	void setLine2(const QString &line2);
+
 private:
 	QString m_line1;
 	QString m_line2;

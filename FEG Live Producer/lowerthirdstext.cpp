@@ -21,3 +21,13 @@ const QString & LowerThirdsText::getLine2() const
 {
 	return m_line2;
 }
+
+void LowerThirdsText::setLine1( const QString &line1 )
+{
+	m_line1 = line1;
+}
+
+void LowerThirdsText::setLine2( const QString &line2 )
+{
+	m_line2 = line2;
+}

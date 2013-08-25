@@ -13,9 +13,10 @@ public:
 
 	const QString &getName() const;
 	const QString &getMovie() const;
-	const QList<LowerThirdsText> &getTexts() const;
+	QList<LowerThirdsText> &getTexts();
 
 	void addText(const LowerThirdsText &text);
+	void removeText(int index);
 
 private:
 	QString m_name;

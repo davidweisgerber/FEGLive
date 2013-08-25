@@ -78,7 +78,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 
 	connect(ui.backgroundTransitionComboBox, SIGNAL(activated(const QString &)), ui.backgroundProgramWidget, SLOT(setBackgroundTransitionStyle(const QString &)));
 	connect(ui.backgroundTransitionTime, SIGNAL(valueChanged(int)), ui.backgroundProgramWidget, SLOT(setBackgroundTransitionTime(int)));
-	connect(ui.lowerThirdsSelect, SIGNAL(lowerThirdChanged(const LowerThird &)), ui.lowerThirdsTextSelect, SLOT(setLowerThird(const LowerThird &)));
+	connect(ui.lowerThirdsSelect, SIGNAL(lowerThirdChanged(LowerThird &)), ui.lowerThirdsTextSelect, SLOT(setLowerThird(LowerThird &)));
 
 	ui.backgroundProgramWidget->setBackgroundTransitionStyle(ui.backgroundTransitionComboBox->currentText());
 	ui.backgroundProgramWidget->setBackgroundTransitionTime(ui.backgroundTransitionTime->value());
@@ -108,6 +108,7 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
 
 	LowerThird generalLowerThird(tr("General"), m_config->getGeneralLowerThird(), QList<LowerThirdsText>() << m_config->getPreConfiguredLowerThirdsList() << preacher << bibleText << topic); 
 	ui.lowerThirdsSelect->addLowerThird(generalLowerThird);
+	ui.lowerThirdsTextSelect->setLowerThird(generalLowerThird);
 
 	foreach (QString song, m_config->getPreConfiguredSongs()) {
 		SongFileParser songFile;
@@ -312,6 +313,7 @@ void FEGLiveProducer::addLowerThird()
 {
 	m_dialogOpen = true;
 	AddLowerThirdDialog dlg(ui.lowerThirdsSelect, m_config, 0);
+	connect(&dlg, SIGNAL(changed()), ui.lowerThirdsTextSelect, SLOT(update()));
 	dlg.exec();
 	m_dialogOpen = false;
 }
