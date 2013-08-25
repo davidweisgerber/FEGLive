@@ -55,6 +55,7 @@ public:
 
 public slots:
 	void take();
+	void takeHard();
 	void autoTakeChanged(bool on);
 
 private slots:

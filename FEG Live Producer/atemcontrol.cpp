@@ -68,11 +68,7 @@ void ATEMControl::take()
 {
 	if(m_hardButton->isChecked()) 
 	{
-		int program = m_con->programInput();
-		int preview = m_con->previewInput();
-
-		m_con->changeProgramInput(preview);
-		m_con->changePreviewInput(program);
+		takeHard();
 	}
 	else
 	{
@@ -327,4 +323,13 @@ void ATEMControl::autoTake(int button)
 		m_con->changePreviewInput(button);
 		m_con->doAuto();
 	}
+}
+
+void ATEMControl::takeHard()
+{
+	int program = m_con->programInput();
+	int preview = m_con->previewInput();
+
+	m_con->changeProgramInput(preview);
+	m_con->changePreviewInput(program);
 }

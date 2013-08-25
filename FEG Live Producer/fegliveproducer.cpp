@@ -205,6 +205,10 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 			{
 				return true;
 			}
+			else if (ev->key() == Qt::Key_Enter || ev->key() == Qt::Key_Return)
+			{
+				m_atem->takeHard();
+			}
 			else
 			{
 				m_atem->keyPressed(ev->text());
