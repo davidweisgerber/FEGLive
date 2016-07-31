@@ -14,8 +14,8 @@
 #include "jsonserializer.h"
 #include "fegliveproducer.h"
 
-FEGLiveProducer::FEGLiveProducer(QWidget *parent, Qt::WFlags flags)
-	: QMainWindow(parent, flags),
+FEGLiveProducer::FEGLiveProducer(QWidget *parent)
+    : QMainWindow(parent),
 	m_notesFile("notes.txt")
 {
 	ui.setupUi(this);
