@@ -85,7 +85,16 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent)
 
 	m_startDialog = new StartDialog(this);
 	m_dialogOpen = true;
-	m_startDialog->exec();
+    if (m_startDialog->exec() != QDialog::Accepted)
+    {
+        m_dontStart = true;
+        return;
+    }
+    else
+    {
+        m_dontStart = false;
+    }
+
 	m_dialogOpen = false;
 
 	setWindowState(Qt::WindowMaximized);
@@ -154,7 +163,12 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent)
 	}
 	connect(ui.notesEdit, SIGNAL(textChanged()), this, SLOT(notesChanged()));
 
-	ui.retranslateUi(this);
+    ui.retranslateUi(this);
+}
+
+bool FEGLiveProducer::isAbortStart()
+{
+    return m_dontStart;
 }
 
 FEGLiveProducer::~FEGLiveProducer()
@@ -188,18 +202,22 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 			if (ev->key() == Qt::Key_Left)
 			{
 				ui.lowerThirdsTextSelect->left();
+                return true;
 			}
 			else if (ev->key() == Qt::Key_Right)
 			{
 				ui.lowerThirdsTextSelect->right();
+                return true;
 			}
 			else if (ev->key() == Qt::Key_Up)
 			{
 				ui.lowerThirdsSelect->next();
+                return true;
 			}
 			else if (ev->key() == Qt::Key_Down)
 			{
 				ui.lowerThirdsSelect->previous();
+                return true;
 			}
 			else if (ev->key() == Qt::Key_Tab)
 			{

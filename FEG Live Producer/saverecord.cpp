@@ -127,7 +127,18 @@ QString SaveRecord::getFilenamePart()
 		break;
 	}
 
-	return m_startDialog->getDate().toString("yyyyMMdd") + timeTypeString + " - " + m_startDialog->getPreacher() + " - " + m_startDialog->getSermonTitle() + " - " + m_startDialog->getBibleText();
+    QString proposal = m_startDialog->getDate().toString("yyyyMMdd") + timeTypeString + " - " + m_startDialog->getPreacher() + " - " + m_startDialog->getSermonTitle() + " - " + m_startDialog->getBibleText();
+    proposal = proposal.replace(":", ",");
+    proposal = proposal.replace("?", "");
+    proposal = proposal.replace("<", "");
+    proposal = proposal.replace(">", "");
+    proposal = proposal.replace("|", "");
+    proposal = proposal.replace("/", "");
+    proposal = proposal.replace("\\", "");
+    proposal = proposal.replace("*", "");
+    proposal = proposal.replace("\"", "");
+
+    return proposal;
 }
 
 void SaveRecord::copyVideo(QString to)

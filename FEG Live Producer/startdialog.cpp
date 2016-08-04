@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QTranslator>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "ui_startdialog.h"
 
 StartDialog::StartDialog(QWidget *parent)
@@ -32,7 +33,8 @@ StartDialog::StartDialog(QWidget *parent)
 
 	connect(ui->languageComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChanged(int)));
 	connect(ui->changeConfigurationButton, SIGNAL(clicked()), this, SLOT(selectConfigurationButtonClicked()));
-	m_changingLanguage = false;
+    connect(ui->okButton, &QAbstractButton::clicked, this, &StartDialog::okClicked);
+    m_changingLanguage = false;
 }
 
 StartDialog::~StartDialog()
@@ -113,5 +115,16 @@ void StartDialog::selectConfigurationButtonClicked()
 	if (newConfiguration.isEmpty() == false) 
 	{
 		ui->configurationLabel->setText(newConfiguration);
-	}
+    }
+}
+
+void StartDialog::okClicked()
+{
+    if (QFile::exists(ui->configurationLabel->text()) == false)
+    {
+        QMessageBox::critical(this, tr("Error"), tr("Configuration file not found."));
+        return;
+    }
+
+    accept();
 }

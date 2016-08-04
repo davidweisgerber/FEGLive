@@ -29,6 +29,7 @@ public:
 private slots:
 	void languageChanged(int index);
 	void selectConfigurationButtonClicked();
+    void okClicked();
 
 private:
 	Ui::StartDialog *ui;

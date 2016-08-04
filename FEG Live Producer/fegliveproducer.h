@@ -21,6 +21,7 @@ class FEGLiveProducer : public QMainWindow
 
 public:
     FEGLiveProducer(QWidget *parent = 0);
+    bool isAbortStart();
 	~FEGLiveProducer();
 
 protected:
@@ -54,6 +55,7 @@ private:
 	QFile m_notesFile;
 	QList<QWidget *> m_inputFields;
 	bool m_dialogOpen;
+    bool m_dontStart;
 
 	QDateTime m_lastStartRecordClicked;
 	QDateTime m_lastStartBroadcastClicked;

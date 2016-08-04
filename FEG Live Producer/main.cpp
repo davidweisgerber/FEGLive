@@ -8,6 +8,11 @@ int main(int argc, char *argv[])
 	ConfigurationParser::ListSelectDataSerializer serializer;
 	
 	FEGLiveProducer w;
+    if (w.isAbortStart() == true)
+    {
+        return 0;
+    }
+
 	w.show();
 	return a.exec();
 }
