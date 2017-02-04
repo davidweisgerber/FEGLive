@@ -29,6 +29,8 @@ class ConfigurationParser : public QObject
 	Q_PROPERTY(QString bibleTextLowerThirdTitle READ getBibleTextLowerThirdTitle WRITE setBibleTextLowerThirdTitle)
 	Q_PROPERTY(QStringList preConfiguredSongs READ getPreConfiguredSongs WRITE setPreConfiguredSongs)
 	Q_PROPERTY(QStringList preConfiguredLowerThirds READ getPreConfiguredLowerThirds WRITE setPreConfiguredLowerThirds)
+    Q_PROPERTY(QString recordOptions READ getRecordOptions WRITE setRecordOptions)
+    Q_PROPERTY(QStringList streamingOptions READ getStreamingOptions WRITE setStreamingOptions)
 
 public:
 
@@ -89,17 +91,24 @@ public:
 
 	QList<LowerThirdsText> getPreConfiguredLowerThirdsList() const;
 
+    QString getRecordOptions() const;
+    void setRecordOptions(const QString &recordOptions);
+
+    QStringList getStreamingOptions() const;
+    void setStreamingOptions(const QStringList &streamingOptions);
 
 private:
-	QString m_logo;
-	QString m_songLowerThird;
-	QString m_generalLowerThird;
-	QList<SelectData *> m_programs;
+    QString m_logo;
+    QString m_songLowerThird;
+    QString m_generalLowerThird;
+    QList<SelectData *> m_programs;
 	int m_defaultClip;
 	QString m_videoPath;
 	QString m_audioPath;
 	QString m_mediaPath;
 	QString m_ffmpegPath;
+    QString m_recordOptions;
+    QStringList m_streamingOptions;
 	QStringList m_preConfiguredSongs;
 	QStringList m_preConfiguredLowerThirds;
 

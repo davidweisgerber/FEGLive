@@ -7,6 +7,7 @@
 #include <QList>
 
 class CasparConnection;
+class ConfigurationParser;
 
 class RecordManager : public QObject
 {
@@ -26,7 +27,7 @@ public:
 		}
 	};
 
-	RecordManager(CasparConnection *con, QObject *parent);
+    RecordManager(CasparConnection *con, ConfigurationParser *config, QObject *parent);
 	~RecordManager();
 
 	QString getRecordingTime();
@@ -39,6 +40,7 @@ public slots:
 
 private:
 	CasparConnection *m_con;
+    ConfigurationParser *m_config;
 	bool m_running;
 	QList<Recording> m_records;
 	Recording m_current;

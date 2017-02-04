@@ -1,13 +1,15 @@
 #include <QFileInfo>
 #include <Windows.h>
 #include "casparconnection.h"
+#include "configurationparser.h"
 #include "recordmanager.h"
 
-RecordManager::RecordManager(CasparConnection *con, QObject *parent)
+RecordManager::RecordManager(CasparConnection *con, ConfigurationParser *config, QObject *parent)
 	: QObject(parent)
 {
 	m_running = false;
 	m_con = con;
+    m_config = config;
 }
 
 RecordManager::~RecordManager()
@@ -24,7 +26,7 @@ void RecordManager::start()
 
 	QDateTime start = QDateTime::currentDateTime();
 	QString filename = start.toString("yyyyMMdd-hhmmss") + ".rec.mov";
-	m_con->sendCommand("ADD 1-1 FILE " + filename + " -f mov -vcodec h264 -preset veryfast -tune film -acodec aac -r 25 -b 3500000 -ac 2");
+    m_con->sendCommand("ADD 1-1 FILE " + filename + " " + m_config->getRecordOptions());
 	m_current = Recording();
 	m_current.filename = filename;
 	m_current.start = start;

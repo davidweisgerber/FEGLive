@@ -56,7 +56,7 @@ void LowerThirdsTextSelectWidget::paintEvent( QPaintEvent *ev )
 
 void LowerThirdsTextSelectWidget::goOff()
 {
-	m_con->sendCommand("CG 1-2 STOP 1");
+    m_con->sendCommand("STOP 1-2");
 	m_hasClipRunning = false;
 }
 
@@ -101,13 +101,11 @@ void LowerThirdsTextSelectWidget::setLowerThird(LowerThird &lowerThird )
 void LowerThirdsTextSelectWidget::doAction( const LowerThirdsText &text )
 {
 	if (m_hasClipRunning == false) {
-		m_con->sendCommand("CG 1-2 ADD 1 " + m_movie + " 1");
+        m_con->sendCommand("PLAY 1-2 [HTML] \"" + m_movie + "\"");
 		m_hasClipRunning = true;
 	}
 
-	m_con->sendCommand("CG 1-2 UPDATE 1 \"<templateData><componentData id=\\\"f0\\\"><data id=\\\"text\\\" value=\\\"" + text.getLine1() + "\\\"></data></componentData>" + 
-		"<componentData id=\\\"f1\\\"><data id=\\\"text\\\" value=\\\"" + text.getLine2() + "\\\"></data></componentData>" +
-		+ "</templateData>");
+    m_con->sendCommand("CALL 1-2 update \"" + text.getLine1() + "|" + text.getLine2() + "\"");
 }
 
 void LowerThirdsTextSelectWidget::setCasparConnection( CasparConnection *con )

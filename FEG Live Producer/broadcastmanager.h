@@ -5,13 +5,14 @@
 #include <QDateTime>
 
 class CasparConnection;
+class ConfigurationParser;
 
 class BroadcastManager : public QObject
 {
 	Q_OBJECT
 
 public:
-	BroadcastManager(CasparConnection *casparCon, QObject *parent);
+    BroadcastManager(CasparConnection *casparCon, ConfigurationParser *config, QObject *parent);
 	~BroadcastManager();
 
 	QString getBroadcastInformation();
@@ -26,6 +27,7 @@ private slots:
 private:
 	void loadAndPlaceTCPRelay();
 	CasparConnection *m_casparCon;
+    ConfigurationParser *m_config;
 
 	QDateTime m_startBroadcast;
 

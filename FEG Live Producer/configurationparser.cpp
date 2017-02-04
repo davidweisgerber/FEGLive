@@ -42,7 +42,10 @@ bool ConfigurationParser::parseFromFile( const QString &fileName )
 	m_songLowerThird = SongFileParser::getPropertyString(object, "songTemplate");
 	m_generalLowerThird = SongFileParser::getPropertyString(object, "generalTemplate");
 
-	m_preConfiguredLowerThirds = object.property("lowerThirds").toVariant().toStringList();
+    m_recordOptions = SongFileParser::getPropertyString(object, "recordOptions");
+    m_streamingOptions = object.property("streamingOptions").toVariant().toStringList();
+
+    m_preConfiguredLowerThirds = object.property("lowerThirds").toVariant().toStringList();
 	m_preConfiguredSongs = object.property("songs").toVariant().toStringList();
 
 	if (object.property("defaultClip").isNumber()) {
@@ -188,14 +191,34 @@ QList<LowerThirdsText> ConfigurationParser::getPreConfiguredLowerThirdsList() co
 	return returnValue;
 }
 
+QString ConfigurationParser::getRecordOptions() const
+{
+    return m_recordOptions;
+}
+
+void ConfigurationParser::setRecordOptions(const QString &recordOptions)
+{
+    m_recordOptions = recordOptions;
+}
+
+QStringList ConfigurationParser::getStreamingOptions() const
+{
+    return m_streamingOptions;
+}
+
+void ConfigurationParser::setStreamingOptions(const QStringList &streamingOptions)
+{
+    m_streamingOptions = streamingOptions;
+}
+
 void ConfigurationParser::setSongLowerThird( const QString &lowerThird )
 {
-	m_songLowerThird = lowerThird;
+    m_songLowerThird = lowerThird;
 }
 
 void ConfigurationParser::setGeneralLowerThird( const QString &lowerThird )
 {
-	m_generalLowerThird = lowerThird;
+    m_generalLowerThird = lowerThird;
 }
 
 void ConfigurationParser::setLogo( const QString &logo )

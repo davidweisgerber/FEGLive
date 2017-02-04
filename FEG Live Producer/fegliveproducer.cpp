@@ -143,11 +143,11 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent)
 
 	doNastyStuff();
 
-	m_records = new RecordManager(m_casparCon, this);
+    m_records = new RecordManager(m_casparCon, m_config, this);
 	connect(ui.recordButton, SIGNAL(clicked()), this, SLOT(recordClicked()));
 	connect(ui.saveRecordButton, SIGNAL(clicked()), this, SLOT(saveRecordsClicked()));
 
-	m_broadcast = new BroadcastManager(m_casparCon, this);
+    m_broadcast = new BroadcastManager(m_casparCon, m_config, this);
 	connect(ui.broadcastButton, SIGNAL(clicked()), this, SLOT(broadcastClicked()));
 
 	m_timer = new QTimer();
@@ -241,7 +241,7 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 
 void FEGLiveProducer::moveCasparCgOglWindow()
 {
-	HWND hCasparCgWindow = FindWindowEx(NULL, NULL, L"SFML_Window", L"ogl[1|720p5000]");
+    HWND hCasparCgWindow = FindWindowEx(NULL, NULL, L"SFML_Window", L"Screen consumer [1|720p5000]");
 
 	if (hCasparCgWindow == NULL)
 	{
@@ -251,7 +251,7 @@ void FEGLiveProducer::moveCasparCgOglWindow()
 
 	SetWindowPos(hCasparCgWindow, HWND_TOPMOST, 1052, 408, 860, 484, SWP_NOACTIVATE);
 
-	hCasparCgWindow = FindWindowEx(NULL, hCasparCgWindow, L"SFML_Window", L"ogl[1|720p5000]");
+    hCasparCgWindow = FindWindowEx(NULL, hCasparCgWindow, L"SFML_Window", L"Screen consumer [1|720p5000]");
 	if (hCasparCgWindow == NULL)
 	{
 		return;
@@ -315,11 +315,11 @@ void FEGLiveProducer::logoClicked()
 {
 	if (ui.logoButton->isChecked())
 	{
-		m_casparCon->sendCommand("CG 1-10 ADD 10 " + m_config->getLogo() + " 1");
+        m_casparCon->sendCommand("PLAY 1-10 [HTML] \"" + m_config->getLogo() + "\"");
 	}
 	else
 	{
-		m_casparCon->sendCommand("CG 1-10 STOP 10");
+        m_casparCon->sendCommand("STOP 1-10");
 	}
 }
 
