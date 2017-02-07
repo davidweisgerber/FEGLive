@@ -60,6 +60,7 @@ private:
 	QDateTime m_lastStartRecordClicked;
 	QDateTime m_lastStartBroadcastClicked;
 	QDateTime m_lastTakeClicked;
+    QDateTime m_lastKeyEvent;
 
 	QDateTime m_lastTakeHappened;
 };

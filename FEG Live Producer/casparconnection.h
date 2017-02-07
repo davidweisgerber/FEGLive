@@ -20,6 +20,8 @@ private slots:
 	void disconnected();
 	void error(QAbstractSocket::SocketError socketError);
 	void readyRead();
+    void reconnect();
+    void stateChanged(QAbstractSocket::SocketState socketState);
 
 private:
 	QTcpSocket *m_socket;

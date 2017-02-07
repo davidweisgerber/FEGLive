@@ -78,6 +78,7 @@ QAtemConnection::QAtemConnection(QObject* parent)
 
     m_majorversion = 0;
     m_minorversion = 0;
+    m_lastDatagramReceived = QDateTime::currentDateTime();
 
     initCommandSlotHash();
 }
@@ -94,6 +95,7 @@ void QAtemConnection::connectToSwitcher(const QHostAddress &address)
     m_packetCounter = 0;
     m_isInitialized = false;
     m_currentUid = 0x1337; // Just a random UID, we'll get a new one from the server eventually
+    m_lastDatagramReceived = QDateTime::currentDateTime();
 
     //Hello
     QByteArray datagram = createCommandHeader(Cmd_HelloPacket, 8, m_currentUid, 0x0, 0x0, 0x0);
@@ -106,6 +108,8 @@ void QAtemConnection::handleSocketData()
 {
     while (m_socket->hasPendingDatagrams())
     {
+        m_lastDatagramReceived = QDateTime::currentDateTime();
+
         QByteArray datagram;
         datagram.resize(m_socket->pendingDatagramSize());
 

@@ -14,6 +14,8 @@ ATEMControl::ATEMControl(QObject *parent)
 {
 	m_con = new QAtemConnection(this);
 
+    connect(m_con, &QAtemConnection::socketError, this, &ATEMControl::socketError);
+
 	QSettings settings;
 	m_con->connectToSwitcher(QHostAddress(settings.value("atem", "192.168.1.21").toString()));
 
@@ -121,7 +123,20 @@ void ATEMControl::transitionFramesChanged(int frames)
 	else if (senderBox == m_wipeSpinBox)
 	{
 		m_con->setWipeFrames(frames);
-	}	
+    }
+}
+
+void ATEMControl::socketError(const QString &errorString)
+{
+    qCritical() << "Socket error from ATEM" << errorString;
+
+    QTimer::singleShot(500, this, &ATEMControl::reconnect);
+}
+
+void ATEMControl::reconnect()
+{
+    QSettings settings;
+    m_con->connectToSwitcher(QHostAddress(settings.value("atem", "192.168.1.21").toString()));
 }
 
 void ATEMControl::autoTakeChanged( bool on )
@@ -157,6 +172,12 @@ void ATEMControl::timerTick()
 
 		++it;
 	}
+
+    if (qAbs(m_con->getLastDatagramReceived().secsTo(QDateTime::currentDateTime())) > 5)
+    {
+        qDebug() << "Last datagram received > 5s... reconnect!";
+        reconnect();
+    }
 }
 
 void ATEMControl::start()

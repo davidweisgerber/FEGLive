@@ -64,6 +64,8 @@ private slots:
 	void transitionChanged();
 	void dipColourChanged(int index);
 	void transitionFramesChanged(int frames);
+    void socketError(const QString& errorString);
+    void reconnect();
 
 signals:
 	void takeHappened();

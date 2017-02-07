@@ -20,6 +20,8 @@ FEGLiveProducer::FEGLiveProducer(QWidget *parent)
 {
 	ui.setupUi(this);
 	
+    m_lastKeyEvent = QDateTime::currentDateTime();
+
 	connect(ui.actionAddLowerThird, SIGNAL(triggered()), this, SLOT(addLowerThird()));
 	connect(ui.actionReposition_Windows, SIGNAL(triggered()), this, SLOT(moveCasparCgOglWindow()));
 	connect(ui.actionSecond_Monitor_Output, SIGNAL(triggered()), this, SLOT(toggleSecondMonitor()));
@@ -198,6 +200,12 @@ bool FEGLiveProducer::eventFilter( QObject *target, QEvent *e)
 				return false;
 			}
 			
+            if (qAbs(m_lastKeyEvent.msecsTo(QDateTime::currentDateTime())) < 100)
+            {
+                return false;
+            }
+
+            m_lastKeyEvent = QDateTime::currentDateTime();
 				
 			if (ev->key() == Qt::Key_Left)
 			{

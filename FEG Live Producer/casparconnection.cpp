@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QTimer>
 #include "casparconnection.h"
 
 CasparConnection::CasparConnection(QObject *parent)
@@ -9,11 +10,12 @@ CasparConnection::CasparConnection(QObject *parent)
 	connect(m_socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error(QAbstractSocket::SocketError)));
 	connect(m_socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(m_socket, &QAbstractSocket::stateChanged, this, &CasparConnection::stateChanged);
 }
 
 CasparConnection::~CasparConnection()
 {
-
+    delete m_socket;
 }
 
 void CasparConnection::connected()
@@ -24,11 +26,13 @@ void CasparConnection::connected()
 void CasparConnection::disconnected()
 {
 	signalError(false, tr("Disconnected"));
+    QTimer::singleShot(500, this, &CasparConnection::reconnect);
 }
 
 void CasparConnection::error(QAbstractSocket::SocketError socketError)
 {
-	switch (socketError) {
+    switch (socketError)
+    {
 	case QAbstractSocket::ConnectionRefusedError:
 	case QAbstractSocket::RemoteHostClosedError:
 	case QAbstractSocket::HostNotFoundError:
@@ -38,12 +42,24 @@ void CasparConnection::error(QAbstractSocket::SocketError socketError)
 		signalError(false, tr("Network error: %1").arg(socketError));
 		break;
 	}
+
+    QTimer::singleShot(500, this, &CasparConnection::reconnect);
 }
 
 void CasparConnection::readyRead()
 {
 	QString read = m_socket->readAll();
-	qDebug() << read;
+    qDebug() << read;
+}
+
+void CasparConnection::reconnect()
+{
+    m_socket->connectToHost(m_host, m_port);
+}
+
+void CasparConnection::stateChanged(QAbstractSocket::SocketState socketState)
+{
+    qDebug() << socketState;
 }
 
 void CasparConnection::connectToHost(const QString &hostname, int port)

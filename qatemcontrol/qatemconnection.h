@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QUdpSocket>
 #include <QColor>
+#include <QDateTime>
 
 typedef union
 {
@@ -197,6 +198,8 @@ public:
     float upstreamKeyPatternXPosition(quint8 keyer) const { return m_upstreamKeys.value(keyer).m_patternXPosition; }
     /// @returns y position for pattern upstream key @p keyer
     float upstreamKeyPatternYPosition(quint8 keyer) const { return m_upstreamKeys.value(keyer).m_patternYPosition; }
+
+    const QDateTime &getLastDatagramReceived() { return m_lastDatagramReceived; }
 
     QColor colorGeneratorColor(quint8 generator) const;
 
@@ -471,6 +474,8 @@ private:
     quint8 m_stingFrames;
 
     quint8 m_borderSource;
+
+    QDateTime m_lastDatagramReceived;
 
 signals:
     void connected();
